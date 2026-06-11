@@ -537,6 +537,13 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRounds();
   startCountdown();
   restoreVote();
+
+  // Always fetch live results, even before the visitor votes,
+  // and keep polling so the pre-vote scoreboard is real too.
+  fetchLiveTally();
+  if (!pollTimer) {
+    pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
+  }
 });
 
 function populateContent() {
@@ -615,9 +622,11 @@ function castVote(choice) {
   // Send to Apps Script
   sendVote(choice);
 
-  // Start polling for live results
+  // Refresh live results immediately and ensure polling is running
   fetchLiveTally();
-  pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
+  if (!pollTimer) {
+    pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
+  }
 }
 
 function sendVote(choice) {
@@ -654,23 +663,32 @@ function updateTallyDisplay(data) {
   // data: { claudeVotes, gptVotes, claudePct, gptPct, total }
   const aPct = slotA.model === 'claude' ? data.claudePct : data.gptPct;
   const bPct = slotB.model === 'claude' ? data.claudePct : data.gptPct;
+  const noVotes = data.total === 0;
 
   // Tally bar (only visible while voting/voted)
   const fillA = document.getElementById('tallyFillA');
   const fillB = document.getElementById('tallyFillB');
   if (fillA && fillB) {
-    fillA.style.width = aPct + '%';
-    fillB.style.width = bPct + '%';
-    fillA.querySelector('span').textContent = 'A · ' + aPct + '%';
-    fillB.querySelector('span').textContent = bPct + '% · B';
+    if (noVotes) {
+      // Even split width so the bar renders, but label it honestly
+      fillA.style.width = '50%';
+      fillB.style.width = '50%';
+      fillA.querySelector('span').textContent = 'A · —';
+      fillB.querySelector('span').textContent = '— · B';
+    } else {
+      fillA.style.width = aPct + '%';
+      fillB.style.width = bPct + '%';
+      fillA.querySelector('span').textContent = 'A · ' + aPct + '%';
+      fillB.querySelector('span').textContent = bPct + '% · B';
+    }
   }
 
   // Scoreboard cards (live, blind)
   const numA = document.getElementById('scoreNumA');
   const numB = document.getElementById('scoreNumB');
   if (numA && numB && phase !== 'revealed') {
-    numA.textContent = aPct + '%';
-    numB.textContent = bPct + '%';
+    numA.textContent = noVotes ? '—' : aPct + '%';
+    numB.textContent = noVotes ? '—' : bPct + '%';
   }
 
   // Vote counts
