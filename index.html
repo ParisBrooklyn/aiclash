@@ -516,12 +516,20 @@ const slotB = flip ? CONTENT.A : CONTENT.B;
 let phase = 'voting'; // voting | voted | revealed
 let userChoice = null;
 let currentTheme = 'light';
+let pollTimer = null;
 
 // Deadline: set a real date here when you launch.
 // Format: new Date('2026-06-15T18:00:00Z')
 // For now uses 72h from first load (replace before going live).
-const DEADLINE = new Date('2026-06-20T18:00:00Z');
+const DEADLINE = new Date(Date.now() + 72 * 3600 * 1000);
 const VOTE_KEY = 'aiclash_q1_voted';
+const QUESTION_ID = 'Q1';
+const ROUND_ID = 'R1';
+const TOPIC_NAME = 'Science & Technology';
+
+// Set this to your deployed Apps Script /exec URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym06dbeGPm9XKx1ple98kXZIHywiM-f4Fsvi-HtsNOceAY7xkmdbcYuR0QGnc5n_8V/exec';
+const POLL_INTERVAL_MS = 30000; // 30 seconds
 
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -606,15 +614,18 @@ function castVote(choice) {
 
   // Send to Apps Script
   sendVote(choice);
+
+  // Start polling for live results
+  fetchLiveTally();
+  pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
 }
 
 function sendVote(choice) {
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym06dbeGPm9XKx1ple98kXZIHywiM-f4Fsvi-HtsNOceAY7xkmdbcYuR0QGnc5n_8V/exec';
   if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
   fetch(APPS_SCRIPT_URL, {
     method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ question:'Q1', round:'R1', topic:'Science & Technology', vote: choice, slot: choice === 'A' ? slotA.model : slotB.model, timestamp: new Date().toISOString() })
+    body: JSON.stringify({ question: QUESTION_ID, round: ROUND_ID, topic: TOPIC_NAME, vote: choice, slot: choice === 'A' ? slotA.model : slotB.model, timestamp: new Date().toISOString() })
   }).catch(() => {});
 }
 
@@ -623,10 +634,68 @@ function restoreVote() {
   if (saved) castVote(saved);
 }
 
+/* ── LIVE TALLY (polling) ─────────────────────────────────────
+   Fetches real vote counts from the Apps Script and updates the
+   tally bar + scoreboard. Tallied by MODEL, then mapped back to
+   this session's A/B slots for display.
+   ──────────────────────────────────────────────────────────── */
+function fetchLiveTally() {
+  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
+  if (phase === 'revealed') return;
+
+  const url = APPS_SCRIPT_URL + '?question=' + encodeURIComponent(QUESTION_ID);
+  fetch(url)
+    .then(res => res.json())
+    .then(data => updateTallyDisplay(data))
+    .catch(() => {});
+}
+
+function updateTallyDisplay(data) {
+  // data: { claudeVotes, gptVotes, claudePct, gptPct, total }
+  const aPct = slotA.model === 'claude' ? data.claudePct : data.gptPct;
+  const bPct = slotB.model === 'claude' ? data.claudePct : data.gptPct;
+
+  // Tally bar (only visible while voting/voted)
+  const fillA = document.getElementById('tallyFillA');
+  const fillB = document.getElementById('tallyFillB');
+  if (fillA && fillB) {
+    fillA.style.width = aPct + '%';
+    fillB.style.width = bPct + '%';
+    fillA.querySelector('span').textContent = 'A · ' + aPct + '%';
+    fillB.querySelector('span').textContent = bPct + '% · B';
+  }
+
+  // Scoreboard cards (live, blind)
+  const numA = document.getElementById('scoreNumA');
+  const numB = document.getElementById('scoreNumB');
+  if (numA && numB && phase !== 'revealed') {
+    numA.textContent = aPct + '%';
+    numB.textContent = bPct + '%';
+  }
+
+  // Vote counts
+  const tallyCount = document.getElementById('tallyVoteCount');
+  if (tallyCount) {
+    tallyCount.textContent = data.total.toLocaleString() + ' votes so far';
+  }
+  const labelA = document.getElementById('scoreLabelA');
+  const labelB = document.getElementById('scoreLabelB');
+  if (labelA && labelB && phase !== 'revealed') {
+    labelA.textContent = data.total.toLocaleString() + ' votes';
+    labelB.textContent = data.total.toLocaleString() + ' votes';
+  }
+
+  // Stash latest percentages for use at reveal time
+  slotA.percent = aPct;
+  slotB.percent = bPct;
+}
+
 /* ── REVEAL ── */
 function revealResults() {
   if (phase === 'revealed') return;
   phase = 'revealed';
+
+  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
 
   // Update countdown
   document.getElementById('countdownWrap').style.display = 'none';
