@@ -4,67 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Clash — Claude vs ChatGPT. You decide.</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">  
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-/* ── DESIGN SYSTEM TOKENS ── */
 :root {
-  --paper-0:#FBFAF8; --paper-1:#F4F2EE; --paper-2:#ECE9E3;
-  --line-0:#E2DED7; --line-1:#CFC9BF;
-  --ink-3:#9A958C; --ink-2:#6B675F; --ink-1:#2C2A26; --ink-0:#111010;
-  --clash-600:#1E3AE6; --clash-500:#2D4BFF; --clash-400:#5E73FF; --clash-100:#E6E9FF; --clash-ink-on:#FFFFFF;
-  --live-500:#E5242A; --live-100:#FBE3E3; --win-500:#2F8F4E; --warn-500:#C98A1B;
-  --duel-a:#5C6672; --duel-a-tint:#EEF0F2; --duel-b:#756E64; --duel-b-tint:#F1EEEA;
-  --duel-accent:var(--clash-500); --duel-surface:var(--paper-1); --duel-ink:var(--ink-1); --duel-border:var(--line-1);
-  --claude-orange:#D97757; --claude-orange-press:#C0613F; --claude-blue:#6A9BCC;
-  --claude-green:#788C5D; --claude-cream:#F0EEE6; --claude-ink:#1A1915;
-  --gpt-black:#0D0D0D; --gpt-graphite:#353740; --gpt-gray:#6E7178;
-  --gpt-white:#FFFFFF; --gpt-mist:#F7F7F8; --gpt-green:#10A37F;
-  --bg:var(--paper-0); --surface:var(--paper-1); --surface-sunken:var(--paper-2);
-  --border:var(--line-0); --border-strong:var(--line-1);
-  --text:var(--ink-1); --text-strong:var(--ink-0); --text-muted:var(--ink-2); --text-faint:var(--ink-3);
-  --accent:var(--clash-500); --accent-hover:var(--clash-400); --accent-press:var(--clash-600); --on-accent:var(--clash-ink-on);
+  --paper-0:#FBFAF8;--paper-1:#F4F2EE;--paper-2:#ECE9E3;
+  --line-0:#E2DED7;--line-1:#CFC9BF;
+  --ink-3:#9A958C;--ink-2:#6B675F;--ink-1:#2C2A26;--ink-0:#111010;
+  --clash-600:#1E3AE6;--clash-500:#2D4BFF;--clash-400:#5E73FF;--clash-100:#E6E9FF;--clash-ink-on:#FFFFFF;
+  --live-500:#E5242A;--live-100:#FBE3E3;--win-500:#2F8F4E;
+  --duel-a:#5C6672;--duel-a-tint:#EEF0F2;--duel-b:#756E64;--duel-b-tint:#F1EEEA;
+  --duel-accent:var(--clash-500);--duel-surface:var(--paper-1);--duel-ink:var(--ink-1);--duel-border:var(--line-1);
+  --claude-orange:#D97757;--claude-orange-press:#C0613F;--claude-blue:#6A9BCC;
+  --claude-green:#788C5D;--claude-cream:#F0EEE6;--claude-ink:#1A1915;
+  --gpt-black:#0D0D0D;--gpt-graphite:#353740;--gpt-gray:#6E7178;
+  --gpt-white:#FFFFFF;--gpt-mist:#F7F7F8;--gpt-green:#10A37F;
+  --bg:var(--paper-0);--surface:var(--paper-1);--surface-sunken:var(--paper-2);
+  --border:var(--line-0);--border-strong:var(--line-1);
+  --text:var(--ink-1);--text-strong:var(--ink-0);--text-muted:var(--ink-2);--text-faint:var(--ink-3);
+  --accent:var(--clash-500);--accent-hover:var(--clash-400);--accent-press:var(--clash-600);--on-accent:var(--clash-ink-on);
   --font-display:'Archivo','Arial Narrow',system-ui,sans-serif;
   --font-ui:'Archivo',system-ui,-apple-system,sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',monospace;
   --font-claude-head:'Poppins',Arial,sans-serif;
   --font-claude-body:'Lora',Georgia,serif;
   --font-gpt:'Archivo','Helvetica Neue',Arial,sans-serif;
-  --fs-mega:clamp(64px,11vw,132px); --fs-score:clamp(56px,8vw,96px);
-  --fs-h1:clamp(34px,5vw,56px); --fs-h2:clamp(26px,3.4vw,40px); --fs-h3:22px;
-  --fs-lg:18px; --fs-body:16px; --fs-sm:14px; --fs-xs:12px; --fs-2xs:11px;
-  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-black:900;
-  --lh-tight:0.92; --lh-snug:1.15; --lh-normal:1.55; --lh-relaxed:1.75;
-  --ls-mega:-0.02em; --ls-tight:-0.01em; --ls-normal:0; --ls-label:0.16em; --ls-wide:0.24em;
-  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
-  --space-6:24px; --space-8:32px; --space-10:40px; --space-12:48px;
+  --fs-mega:clamp(64px,11vw,132px);--fs-h1:clamp(34px,5vw,56px);--fs-h2:clamp(26px,3.4vw,40px);
+  --fs-body:16px;--fs-sm:14px;--fs-xs:12px;--fs-2xs:11px;
+  --fw-black:900;--fw-bold:700;--fw-semibold:600;--fw-medium:500;
+  --lh-tight:0.92;--lh-snug:1.15;--lh-normal:1.55;--lh-relaxed:1.75;
+  --ls-mega:-0.02em;--ls-tight:-0.01em;--ls-label:0.16em;--ls-wide:0.24em;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;
   --duel-seam:2px;
-  --radius-0:0; --radius-sm:4px; --radius-md:8px; --radius-lg:14px; --radius-pill:999px;
-  --maxw-prose:720px; --maxw-content:1100px; --nav-h:64px;
-  --page-gutter:clamp(20px,5vw,40px);
-  --border-hair:1px solid var(--border); --border-strong-1:1px solid var(--border-strong); --border-accent:1px solid var(--accent);
-  --shadow-xs:0 1px 2px rgba(17,16,16,0.06); --shadow-sm:0 2px 8px rgba(17,16,16,0.07);
-  --shadow-md:0 8px 24px rgba(17,16,16,0.10); --shadow-lg:0 18px 48px rgba(17,16,16,0.16);
+  --radius-0:0;--radius-sm:4px;--radius-md:8px;--radius-lg:14px;--radius-pill:999px;
+  --maxw-content:1100px;--nav-h:64px;--page-gutter:clamp(20px,5vw,40px);
   --ring:0 0 0 3px var(--clash-100),0 0 0 4px var(--accent);
-  --glow-clash:0 0 28px rgba(45,75,255,0.28); --glow-claude:0 0 28px rgba(217,119,87,0.30);
-  --ease-out:cubic-bezier(0.22,1,0.36,1); --ease-in-out:cubic-bezier(0.65,0,0.35,1);
-  --dur-fast:120ms; --dur-base:200ms; --dur-slow:360ms;
+  --glow-clash:0 0 28px rgba(45,75,255,0.28);--glow-claude:0 0 28px rgba(217,119,87,0.30);
+  --ease-out:cubic-bezier(0.22,1,0.36,1);--dur-fast:120ms;--dur-base:200ms;--dur-slow:360ms;
 }
-[data-theme="dark"] {
-  --paper-0:#14130F; --paper-1:#1E1C18; --paper-2:#27241F;
-  --line-0:#322F29; --line-1:#46423A;
-  --ink-3:#837D72; --ink-2:#A8A296; --ink-1:#ECE8DF; --ink-0:#FBFAF6;
-  --clash-500:#5E73FF; --clash-400:#8493FF; --clash-600:#2D4BFF; --clash-100:#1B1E3A;
-  --live-100:#3A1B1C; --claude-cream:#211F1A; --gpt-mist:#1A1A1B;
-  --duel-surface:var(--paper-1); --duel-border:var(--line-1);
-  --duel-a:#8A95A3; --duel-a-tint:#20242A; --duel-b:#A39A8C; --duel-b-tint:#25221E;
-  --shadow-xs:0 1px 2px rgba(0,0,0,0.4); --shadow-sm:0 2px 8px rgba(0,0,0,0.45);
-  --shadow-md:0 8px 24px rgba(0,0,0,0.5); --shadow-lg:0 18px 48px rgba(0,0,0,0.6);
+[data-theme="dark"]{
+  --paper-0:#14130F;--paper-1:#1E1C18;--paper-2:#27241F;
+  --line-0:#322F29;--line-1:#46423A;
+  --ink-3:#837D72;--ink-2:#A8A296;--ink-1:#ECE8DF;--ink-0:#FBFAF6;
+  --clash-500:#5E73FF;--clash-400:#8493FF;--clash-600:#2D4BFF;--clash-100:#1B1E3A;
+  --live-100:#3A1B1C;--claude-cream:#211F1A;--gpt-mist:#1A1A1B;
+  --duel-a:#8A95A3;--duel-a-tint:#20242A;--duel-b:#A39A8C;--duel-b-tint:#25221E;
 }
-
-/* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--bg)}
 body{background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:16px;line-height:var(--lh-normal);-webkit-font-smoothing:antialiased;transition:background var(--dur-base),color var(--dur-base)}
@@ -72,7 +59,6 @@ a{color:inherit}
 ::selection{background:var(--clash-100)}
 button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 
-/* ── ANIMATIONS ── */
 @keyframes clashPulse{0%{box-shadow:0 0 0 0 rgba(229,36,42,0.55)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
 @keyframes clashDeepen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @keyframes clashReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -81,15 +67,13 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-reveal{animation:clashReveal var(--dur-slow) var(--ease-out) both}
 .clash-blur{filter:blur(5px);-webkit-filter:blur(5px);user-select:none}
 
-/* ── HOVER STATES ── */
-.clash-btn:hover:not(:disabled){filter:brightness(0.96)}
 .clash-vote:not([data-selected="true"]):not(:disabled):hover{border-color:var(--accent)!important;box-shadow:var(--glow-clash)}
 .clash-vote:not([data-selected="true"]):not(:disabled):hover .clash-vote-glyph,
 .clash-vote:not([data-selected="true"]):not(:disabled):hover .clash-vote-mark{color:var(--accent)}
 .clash-deeper:hover{color:var(--text-strong)!important;border-color:var(--border-strong)!important}
 .clash-round-int:hover{border-color:var(--border-strong)!important;background:var(--surface-sunken)!important}
 
-/* ── NAV ── */
+/* NAV */
 .clash-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 var(--page-gutter);height:var(--nav-h);background:rgba(251,250,248,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background var(--dur-base)}
 [data-theme="dark"] .clash-nav{background:rgba(20,19,15,0.88)}
 .clash-wordmark{font-family:var(--font-display);font-weight:900;font-size:26px;letter-spacing:-0.01em;text-transform:uppercase;color:var(--text-strong);line-height:1;text-decoration:none;cursor:pointer}
@@ -106,7 +90,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-mobile-menu a{font-family:var(--font-mono);font-size:13px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text);text-decoration:none;padding:12px 0;border-bottom:1px solid var(--border)}
 .clash-mobile-menu .clash-theme-btn{margin-top:12px;align-self:flex-start}
 
-/* ── HERO ── */
+/* HERO */
 .clash-hero{text-align:center;padding:clamp(56px,9vw,96px) var(--page-gutter) clamp(40px,6vw,64px);border-bottom:1px solid var(--border)}
 .clash-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--text-muted);margin-bottom:22px}
 .clash-h1{font-family:var(--font-display);font-weight:900;font-size:var(--fs-mega);line-height:var(--lh-tight);letter-spacing:var(--ls-mega);text-transform:uppercase;color:var(--text-strong);margin-bottom:26px}
@@ -117,13 +101,20 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-cta:hover{background:var(--accent-press)}
 .clash-fair{margin-top:24px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text-faint)}
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 .clash-section{padding:clamp(48px,6vw,72px) var(--page-gutter);max-width:var(--maxw-content);margin:0 auto}
 .clash-section-wrap{border-top:1px solid var(--border)}
 .clash-inner{max-width:var(--maxw-content);margin:0 auto}
 .clash-label{font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--text-muted);margin-bottom:28px}
 
-/* ── VOTE SECTION ── */
+/* BADGE */
+.clash-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:var(--ls-label);text-transform:uppercase;padding:4px 11px;border-radius:var(--radius-0);line-height:1.4}
+.clash-badge-neutral{color:var(--text-muted);border:1px solid var(--border-strong);background:transparent}
+.clash-badge-accent{color:var(--accent);border:1px solid var(--accent);background:var(--clash-100)}
+.clash-badge-live{color:var(--live-500);border:1px solid var(--live-500);background:var(--live-100)}
+.clash-badge-closed{color:var(--text-faint);border:1px solid var(--border);background:transparent}
+
+/* VOTE SECTION */
 .clash-vote-sec{padding:clamp(48px,6vw,72px) var(--page-gutter);border-bottom:1px solid var(--border);background:var(--surface)}
 .clash-q-meta{display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap}
 .clash-q-text{font-family:var(--font-display);font-weight:800;font-size:var(--fs-h2);line-height:1.08;letter-spacing:var(--ls-tight);color:var(--text-strong);margin-bottom:40px;max-width:820px}
@@ -131,20 +122,13 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-vote-area{display:grid;grid-template-columns:1fr 1fr;gap:var(--duel-seam)}
 .clash-note{text-align:center;font-family:var(--font-mono);font-size:12px;letter-spacing:0.04em;color:var(--text-muted);margin-top:18px}
 
-/* ── BADGE ── */
-.clash-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:var(--ls-label);text-transform:uppercase;padding:4px 11px;border-radius:var(--radius-0);line-height:1.4}
-.clash-badge-neutral{color:var(--text-muted);border:1px solid var(--border-strong);background:transparent}
-.clash-badge-accent{color:var(--accent);border:1px solid var(--accent);background:var(--clash-100)}
-.clash-badge-live{color:var(--live-500);border:1px solid var(--live-500);background:var(--live-100)}
-.clash-badge-closed{color:var(--text-faint);border:1px solid var(--border);background:transparent}
-
-/* ── COUNTDOWN ── */
+/* COUNTDOWN */
 .clash-countdown{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono)}
 .clash-countdown-label{font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted)}
 .clash-countdown-time{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0.04em;color:var(--text-strong)}
 .clash-countdown-time.urgent{color:var(--live-500)}
 
-/* ── RESPONSE CARD ── */
+/* RESPONSE CARD */
 .clash-response-card{background:var(--bg);border:1px solid var(--border);padding:32px}
 .clash-response-header{display:flex;align-items:baseline;gap:14px;padding-bottom:16px;margin-bottom:20px;border-bottom:2px solid var(--duel-a);transition:border-color var(--dur-slow)}
 .clash-response-glyph{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1}
@@ -157,7 +141,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-deep-content p{font-family:var(--font-ui);font-size:15px;line-height:1.8;color:var(--text-muted);margin-bottom:16px}
 .clash-deep-content p:last-child{margin-bottom:0}
 
-/* ── VOTE BUTTON ── */
+/* VOTE BUTTON */
 .clash-vote{display:flex;align-items:center;gap:16px;width:100%;text-align:left;padding:18px 22px;border-radius:var(--radius-0);cursor:pointer;transition:border-color var(--dur-base),background var(--dur-base),box-shadow var(--dur-base)}
 .clash-vote-glyph{font-family:var(--font-display);font-weight:900;font-size:30px;line-height:1;width:36px;flex:none;transition:color var(--dur-base)}
 .clash-vote-labels{display:flex;flex-direction:column;gap:3px}
@@ -165,7 +149,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-vote-main{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--text-strong)}
 .clash-vote-mark{margin-left:auto;font-family:var(--font-mono);font-size:18px;transition:color var(--dur-base)}
 
-/* ── LIVE TALLY ── */
+/* TALLY */
 .clash-tally{margin-top:24px;border:1px solid var(--border);padding:24px;background:var(--bg)}
 .clash-tally-head{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);margin-bottom:14px}
 .clash-tally-bar{display:flex;height:44px;border:1px solid var(--border-strong);overflow:hidden}
@@ -174,20 +158,11 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-tally-fill.a{background:var(--clash-100);justify-content:flex-start}
 .clash-tally-fill.b{background:var(--surface-sunken);justify-content:flex-end;border-left:1px solid var(--border-strong)}
 
-/* ── REVEAL ── */
-.clash-reveal-wrap{margin-top:36px}
-.clash-reveal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.clash-reveal-card{padding:28px 30px}
-.clash-reveal-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.clash-reveal-side-glyph{font-family:var(--font-display);font-weight:900;font-size:24px;line-height:1}
-.clash-reveal-divider{width:1px;height:20px;background:currentColor;opacity:0.2}
-.clash-reveal-org{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
-.clash-reveal-outcome{margin-left:auto;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 11px;border-radius:var(--radius-pill)}
-.clash-reveal-headline{font-size:30px;line-height:1.05;margin-bottom:12px}
-.clash-reveal-percent{font-size:15px;line-height:1.6;opacity:0.85}
-.clash-reveal-share{display:flex;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+/* REVEAL */
+.clash-reveal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
+.clash-reveal-card{padding:28px 30px;animation:clashReveal var(--dur-slow) var(--ease-out) both}
 
-/* ── SCOREBOARD ── */
+/* SCOREBOARD */
 .clash-scoreboard{display:grid;grid-template-columns:1fr 1fr;gap:var(--duel-seam);border:1px solid var(--border)}
 .clash-score-card{background:var(--surface);border:1px solid var(--border);padding:28px 30px;text-align:center}
 .clash-score-name{font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;margin-bottom:4px}
@@ -199,7 +174,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-topic-name{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
 .clash-topic-scores{display:flex;justify-content:center;gap:8px;font-family:var(--font-mono);font-size:18px;font-weight:700}
 
-/* ── ROUNDS ── */
+/* ROUNDS */
 .clash-rounds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--duel-seam)}
 .clash-round{background:var(--surface);border:1px solid var(--border);padding:24px;transition:border-color var(--dur-base),background var(--dur-base)}
 .clash-round-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
@@ -208,7 +183,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-round-q{font-family:var(--font-ui);font-size:15px;font-weight:600;line-height:1.4;color:var(--text-strong);margin-bottom:16px}
 .clash-round-result{font-family:var(--font-mono);font-size:12px;color:var(--text-muted)}
 
-/* ── ABOUT ── */
+/* ABOUT */
 .clash-about-sec{border-top:1px solid var(--border);background:var(--surface)}
 .clash-about{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:start}
 .clash-about-h{font-family:var(--font-display);font-weight:900;font-size:var(--fs-h1);line-height:0.96;letter-spacing:var(--ls-tight);text-transform:uppercase;color:var(--text-strong);margin-bottom:22px}
@@ -220,18 +195,16 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-rule:last-child{margin-bottom:0}
 .clash-rule-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);min-width:24px;padding-top:2px;font-weight:700}
 
-/* ── FOOTER ── */
+/* FOOTER */
 .clash-footer{border-top:1px solid var(--border);padding:32px var(--page-gutter);display:flex;justify-content:space-between;align-items:center}
 .clash-footer-note{font-family:var(--font-mono);font-size:12px;color:var(--text-muted)}
 
-/* ── SHARE BUTTON ── */
+/* SHARE */
 .clash-share-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;font-family:var(--font-mono);font-weight:600;font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;border-radius:var(--radius-0);cursor:pointer;transition:background var(--dur-base),color var(--dur-base),border-color var(--dur-base)}
 .clash-share-btn.primary{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent)}
 .clash-share-btn.primary:hover{background:var(--accent-press)}
-.clash-share-btn.ghost{background:transparent;color:var(--text-muted);border:1px solid transparent}
-.clash-share-btn.ghost:hover{color:var(--text-strong)}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:860px){
   .clash-nav-links{display:none}
   .clash-burger{display:block}
@@ -257,23 +230,21 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
     <a href="#scores" onclick="nav(event,'scores')">Scores</a>
     <a href="#rounds" onclick="nav(event,'rounds')">Rounds</a>
     <a href="#about" onclick="nav(event,'about')">About</a>
-    <button class="clash-theme-btn" id="themeBtn" onclick="toggleTheme()">
-      <span id="themeIcon">☾</span><span id="themeLabel">Dark</span>
-    </button>
+    <button class="clash-theme-btn" onclick="toggleTheme()"><span id="themeIcon">☾</span><span id="themeLabel">Dark</span></button>
   </div>
-  <button class="clash-burger" id="burgerBtn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <button class="clash-burger" id="burgerBtn" onclick="toggleMenu()">☰</button>
   <div class="clash-mobile-menu" id="mobileMenu">
     <a href="#vote" onclick="navMobile(event,'vote')">Vote</a>
     <a href="#scores" onclick="navMobile(event,'scores')">Scores</a>
     <a href="#rounds" onclick="navMobile(event,'rounds')">Rounds</a>
     <a href="#about" onclick="navMobile(event,'about')">About</a>
-    <button class="clash-theme-btn" onclick="toggleTheme()"><span id="themeIconM">☾</span> <span id="themeLabelM">Dark</span></button>
+    <button class="clash-theme-btn" onclick="toggleTheme()"><span id="themeIconM">☾</span><span id="themeLabelM">Dark</span></button>
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="clash-hero">
-  <div class="clash-eyebrow">Round 1 · Science &amp; Technology · Question 1 of 5</div>
+<!-- HERO (populated by JS) -->
+<header class="clash-hero" id="heroSection">
+  <div class="clash-eyebrow" id="heroEyebrow">Loading...</div>
   <h1 class="clash-h1">Claude<span class="vs"> vs </span>ChatGPT</h1>
   <p class="clash-sub">Two AI models. One question. <strong>You decide who answered better.</strong> 25 questions across 5 topics. Every vote shapes the verdict.</p>
   <button class="clash-cta" onclick="nav(event,'vote')">Cast your vote</button>
@@ -283,15 +254,13 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 <!-- VOTE SECTION -->
 <section class="clash-vote-sec" id="vote">
   <div class="clash-inner">
-
-    <!-- Meta row -->
     <div class="clash-q-meta">
-      <span class="clash-badge clash-badge-neutral">Round 1</span>
-      <span class="clash-badge clash-badge-accent">Science &amp; Technology</span>
+      <span class="clash-badge clash-badge-neutral" id="qRoundBadge">Round 1</span>
+      <span class="clash-badge clash-badge-accent" id="qTopicBadge">Science &amp; Technology</span>
       <div style="margin-left:auto">
         <div class="clash-countdown" id="countdownWrap">
           <span class="clash-countdown-label">Voting closes in</span>
-          <span class="clash-countdown-time" id="countdownTime">71:59:59</span>
+          <span class="clash-countdown-time" id="countdownTime">--:--:--</span>
         </div>
         <span class="clash-badge clash-badge-closed" id="votingClosedBadge" style="display:none">
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--text-faint)"></span>
@@ -299,16 +268,11 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
         </span>
       </div>
     </div>
-
-    <!-- Question -->
-    <h2 class="clash-q-text">What is quantum computing and why does it matter for the future?</h2>
-
-    <!-- Responses -->
+    <h2 class="clash-q-text" id="questionText">Loading question...</h2>
     <div class="clash-responses" id="responsesGrid">
-      <!-- Card A -->
       <div class="clash-response-card">
-        <div class="clash-response-header" id="headerA">
-          <span class="clash-response-glyph" id="glyphA">A</span>
+        <div class="clash-response-header" id="headerA" style="border-bottom-color:var(--duel-a)">
+          <span class="clash-response-glyph" id="glyphA" style="color:var(--duel-a)">A</span>
           <span class="clash-response-name" id="nameA">Response A</span>
         </div>
         <p class="clash-response-summary" id="summaryA"></p>
@@ -317,7 +281,6 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
         </button>
         <div class="clash-deep-content clash-deepen" id="deepA" style="display:none"></div>
       </div>
-      <!-- Card B -->
       <div class="clash-response-card">
         <div class="clash-response-header" id="headerB" style="border-bottom-color:var(--duel-b)">
           <span class="clash-response-glyph" id="glyphB" style="color:var(--duel-b)">B</span>
@@ -330,8 +293,6 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
         <div class="clash-deep-content clash-deepen" id="deepB" style="display:none"></div>
       </div>
     </div>
-
-    <!-- Vote buttons (hidden after vote) -->
     <div class="clash-vote-area" id="voteArea">
       <button class="clash-vote" id="voteA" data-selected="false" data-side="A"
         style="background:var(--duel-a-tint);color:var(--duel-ink);border-top:3px solid var(--duel-a);border-right:1px solid var(--duel-border);border-bottom:1px solid var(--duel-border);border-left:1px solid var(--duel-border)"
@@ -354,36 +315,29 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
         <span class="clash-vote-mark" style="color:var(--text-faint)">▲</span>
       </button>
     </div>
-
-    <!-- Pre-vote note -->
     <p class="clash-note" id="preVoteNote">One vote per session · A/B positions are randomized each round · Identities revealed when voting closes</p>
-
-    <!-- Post-vote tally (hidden until voted) -->
     <div class="clash-tally" id="tallyBlock" style="display:none">
       <div class="clash-tally-head">
         <span>Live tally</span>
-        <span id="tallyVoteCount">3,128 votes so far</span>
+        <span id="tallyVoteCount">0 votes so far</span>
       </div>
       <div class="clash-tally-bar">
-        <div class="clash-tally-fill a" id="tallyFillA" style="width:54%"><span>A · 54%</span></div>
-        <div class="clash-tally-fill b" id="tallyFillB" style="width:46%"><span>46% · B</span></div>
+        <div class="clash-tally-fill a" id="tallyFillA" style="width:50%"><span>A · —</span></div>
+        <div class="clash-tally-fill b" id="tallyFillB" style="width:50%"><span>— · B</span></div>
       </div>
       <p class="clash-note" id="tallyNote" style="margin-top:18px"></p>
     </div>
-
-    <!-- Reveal (hidden until voting closes) -->
-    <div id="revealBlock" style="display:none;margin-top:36px">
-      <div class="clash-label">The reveal</div>
+    <div id="revealBlock" style="display:none">
+      <div class="clash-label" style="margin-top:36px">The reveal</div>
       <div class="clash-reveal-grid">
-        <div id="revealA" class="clash-reveal"></div>
-        <div id="revealB" class="clash-reveal"></div>
+        <div id="revealA"></div>
+        <div id="revealB"></div>
       </div>
       <p class="clash-note" id="revealNote" style="margin-top:20px"></p>
-      <div class="clash-reveal-share">
+      <div style="display:flex;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap">
         <button class="clash-share-btn primary" onclick="shareResult()">↗ Share result</button>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -391,50 +345,26 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 <div class="clash-section-wrap">
 <section class="clash-section" id="scores">
   <div class="clash-label">Overall standings</div>
-  <div class="clash-scoreboard" id="scoreboardGrid">
-    <!-- A card -->
+  <div class="clash-scoreboard">
     <div class="clash-score-card" id="scoreCardA" style="border-top:3px solid var(--duel-border)">
       <div class="clash-score-name" id="scoreNameA" style="color:var(--text-muted);font-weight:400">Response A</div>
       <div class="clash-score-org" id="scoreOrgA">Live tally</div>
-      <div class="clash-score-num" id="scoreNumA" style="color:var(--text-strong)">54%</div>
-      <div class="clash-score-label" id="scoreLabelA">3,128 votes</div>
+      <div class="clash-score-num" id="scoreNumA" style="color:var(--text-strong)">—</div>
+      <div class="clash-score-label" id="scoreLabelA">0 votes</div>
     </div>
-    <!-- B card -->
     <div class="clash-score-card" id="scoreCardB" style="border-top:3px solid var(--duel-border)">
       <div class="clash-score-name" id="scoreNameB" style="color:var(--text-muted);font-weight:400">Response B</div>
       <div class="clash-score-org" id="scoreOrgB">Live tally</div>
-      <div class="clash-score-num" id="scoreNumB" style="color:var(--text-strong)">46%</div>
-      <div class="clash-score-label" id="scoreLabelB">3,128 votes</div>
+      <div class="clash-score-num" id="scoreNumB" style="color:var(--text-strong)">—</div>
+      <div class="clash-score-label" id="scoreLabelB">0 votes</div>
     </div>
   </div>
   <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--text-faint);letter-spacing:0.04em" id="scoreboardNote">
-    Live vote share for the open question. Names hidden until close.
+    Live vote share for the open question. Model names hidden until close.
   </div>
-
   <div style="height:40px"></div>
   <div class="clash-label">By topic</div>
-  <div class="clash-topics">
-    <div class="clash-topic">
-      <div class="clash-topic-name">Science &amp; Tech</div>
-      <div class="clash-topic-scores" id="topicScores0"><span style="color:var(--text-faint)">—</span></div>
-    </div>
-    <div class="clash-topic" style="opacity:0.5">
-      <div class="clash-topic-name clash-blur">Philosophy</div>
-      <div class="clash-topic-scores"><span style="color:var(--text-faint)">—</span></div>
-    </div>
-    <div class="clash-topic" style="opacity:0.5">
-      <div class="clash-topic-name clash-blur">History</div>
-      <div class="clash-topic-scores"><span style="color:var(--text-faint)">—</span></div>
-    </div>
-    <div class="clash-topic" style="opacity:0.5">
-      <div class="clash-topic-name clash-blur">Culture &amp; Society</div>
-      <div class="clash-topic-scores"><span style="color:var(--text-faint)">—</span></div>
-    </div>
-    <div class="clash-topic" style="opacity:0.5">
-      <div class="clash-topic-name clash-blur">Economics</div>
-      <div class="clash-topic-scores"><span style="color:var(--text-faint)">—</span></div>
-    </div>
-  </div>
+  <div class="clash-topics" id="topicsGrid"></div>
 </section>
 </div>
 
@@ -450,12 +380,12 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
     <div>
       <h2 class="clash-about-h">What is<br>AI Clash?</h2>
       <p>Two AI models — <strong>Claude</strong> by Anthropic and <strong>ChatGPT</strong> by OpenAI. We asked them the same 25 questions across 5 topics. Same prompt. Same constraints. No coaching.</p>
-      <p><strong>You decide who answered better.</strong> One question goes live each day for 72 hours. Vote before the window closes — and you won't know which model wrote which response until after you have.</p>
+      <p><strong>You decide who answered better.</strong> Vote before the window closes — you won't know which model wrote which response until after you have.</p>
       <p style="color:var(--text-faint)">Why blind? Brand loyalty is loud. Stripping the logos is the only way to find out which answer people actually prefer.</p>
     </div>
     <div class="clash-rules">
       <div class="clash-rules-head">How it works</div>
-      <div class="clash-rule"><span class="clash-rule-num">01</span><span>Each question runs for 72 hours. One new question per day.</span></div>
+      <div class="clash-rule"><span class="clash-rule-num">01</span><span>Each question runs for 72 hours. The next question goes live once voting closes on the current one.</span></div>
       <div class="clash-rule"><span class="clash-rule-num">02</span><span>Responses are shown blind — labeled A and B. Identities are revealed only after voting closes.</span></div>
       <div class="clash-rule"><span class="clash-rule-num">03</span><span>Win a round: 3 points. Tie: 1 point each. Lose: 0 points.</span></div>
       <div class="clash-rule"><span class="clash-rule-num">04</span><span>Points are tracked by topic and overall. 25 questions across 5 rounds.</span></div>
@@ -472,82 +402,634 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 
 <script>
 /* ══════════════════════════════════════════════
-   AI CLASH — vanilla JS runtime
+   AI CLASH — CONFIGURATION
    ══════════════════════════════════════════════ */
 
-/* ── CONTENT ── */
-const CONTENT = {
-  A: {
-    model: 'claude',
-    summary: 'Imagine you are trying to find the fastest route through a maze. A normal computer tries each path one by one until it finds the exit. A quantum computer tries all paths at the same time — that is the core advantage, and why the technology could one day solve in minutes what would otherwise take longer than the age of the universe.',
-    paragraphs: [
-      'Where a classical computer uses bits that are either 0 or 1, a quantum computer uses qubits, which can exist in multiple states simultaneously through superposition. Combined with entanglement, this lets quantum machines explore vast numbers of possible solutions at once rather than sequentially.',
-      'The near-term implications are significant. Cryptography is the most discussed: today\'s encryption relies on problems classical computers would take thousands of years to solve, but a mature quantum computer could crack in hours. Drug discovery, materials science and financial modelling are equally promising.',
-      'The gap between promise and reality remains wide. Current machines are fragile, error-prone, and run only near absolute zero. The challenge is not just more qubits, but stable, reliable ones.',
-    ],
-    percent: 58, outcome: 'won'
-  },
-  B: {
-    model: 'gpt',
-    summary: 'Imagine a normal computer as someone checking one answer at a time, while a quantum computer can explore many answers all at once. It considers multiple possibilities together, which makes it powerful for very complicated problems. In simple terms, quantum computing works differently from regular computers in a way that could make some impossible tasks possible.',
-    paragraphs: [
-      'Quantum computing is based on the principles of quantum mechanics, where information is processed using quantum bits, or qubits, instead of binary bits. Through superposition and entanglement, qubits can represent and process many possibilities simultaneously rather than sequentially.',
-      'This matters because quantum computers could solve problems that are practically impossible for classical machines. Encryption, drug discovery, climate modeling and complex optimization could all see major advances. Organizations such as IBM and Google are actively developing quantum systems.',
-      'Despite limitations like instability and error correction, progress is steady. As hardware and algorithms improve, quantum computing could reshape industries by enabling faster simulations and more accurate predictions.',
-    ],
-    percent: 42, outcome: 'lost'
-  },
-  tally: { a: 54, b: 46, votes: 3128 }
-};
+// ── MANUAL OVERRIDE ──────────────────────────
+// Set to a question ID like 'S1', 'S2', 'P1' etc to force that question live.
+// Set to null to auto-detect based on DEADLINE.
+const CURRENT_OVERRIDE = 'S1';
 
-const ROUNDS_DATA = [
-  { round:'Round 1', number:1, status:'live', question:'What is quantum computing and why does it matter for the future?' },
-  { round:'Round 1', number:2, status:'upcoming', question:'How does climate science actually work — what do models measure and how reliable are they?' },
-  { round:'Round 1', number:3, status:'upcoming', question:'What is CRISPR and what are the implications of editing the human genome?' },
-  { round:'Round 1', number:4, status:'upcoming', question:'What is nuclear fusion and why has it taken so long to become a viable energy source?' },
-  { round:'Round 1', number:5, status:'upcoming', question:'How does a vaccine train the immune system, and why do some people reject the science?' },
+// ── DEADLINE ─────────────────────────────────
+// Set this to the closing time of the CURRENT question (UTC).
+// Replace before going live: new Date('2026-07-01T18:00:00Z')
+const DEADLINE = new Date(Date.now() + 72 * 3600 * 1000);
+
+// ── APPS SCRIPT URL ──────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1NKV7_LINjbxbS50Chpu6Ku9bYIiEKMwE8eWke6QxrkFFZ8uYPRV7qwXqq5EnM0mu/exec';
+
+// ── POLL INTERVAL ────────────────────────────
+const POLL_INTERVAL_MS = 30000;
+
+/* ══════════════════════════════════════════════
+   QUESTIONS DATA
+   ══════════════════════════════════════════════ */
+const QUESTIONS = [
+  {
+    id: "S1",
+    round: "Round 1",
+    roundNum: 1,
+    questionNum: 1,
+    topic: "Science & Technology",
+    topicDisplay: "Science &amp; Technology",
+    question: `What is quantum computing and why does it matter for the future?`,
+    claude: {
+      summary: `Imagine you are trying to find the fastest route through a maze. A normal computer tries each path one by one until it finds the exit. A quantum computer tries all paths at the same time. That is the core advantage — and why the technology, once mature, could solve problems in minutes that would take today's most powerful computers longer than the age of the universe.`,
+      p1: `Quantum computing is a fundamentally different approach to processing information. Where a classical computer uses bits that are either 0 or 1, a quantum computer uses qubits, which can exist in multiple states simultaneously through a property called superposition. Combined with entanglement — the ability of qubits to be correlated across any distance — this allows quantum machines to explore vast numbers of possible solutions to a problem at the same time rather than sequentially.`,
+      p2: `The implications for specific fields are significant and near-term. Cryptography is the most discussed: the encryption protecting banking, government communications, and private data today relies on mathematical problems that classical computers would take thousands of years to solve, but quantum computers could crack in hours. Drug discovery, materials science, and financial modelling are equally promising, since all three involve simulating complex systems at a molecular level that overwhelms classical hardware.`,
+      p3: `The gap between promise and reality remains wide, however. Current quantum computers are fragile, error-prone, and operate only in conditions close to absolute zero. The engineering challenge is not just building more qubits but building stable, reliable ones — a problem researchers have been chipping away at for two decades without a definitive breakthrough.`,
+    },
+    gpt: {
+      summary: `Imagine trying to find your way through a gigantic maze with billions of possible paths. A normal computer checks paths using a very structured step-by-step process, while a quantum computer can use the strange rules of quantum physics to evaluate many possibilities in parallel. It is not magic and it will not replace ordinary computers, but it could become an incredibly powerful tool for a small set of problems that are currently beyond our reach. That possibility is why quantum computing is often viewed as one of the most important emerging technologies of the coming decades.`,
+      p1: `Quantum computing is a new approach to computation that uses the laws of quantum physics rather than only the classical rules that power today’s computers. While a traditional computer stores information as bits that are either 0 or 1, a quantum computer uses quantum bits, or qubits, which can exist in combinations of both states at the same time. This allows certain kinds of calculations to be explored in fundamentally different ways.`,
+      p2: `The power of quantum computing does not come from being faster at everything, but from solving specific problems that become extraordinarily difficult for conventional machines as they grow in size. By exploiting phenomena such as superposition and entanglement, quantum systems can process complex possibilities simultaneously and uncover patterns that would otherwise require enormous amounts of time and computing resources. Researchers are especially interested in applications involving chemistry, materials science, optimization, and cryptography.`,
+      p3: `If large-scale, reliable quantum computers become practical, they could accelerate the discovery of new medicines, improve battery technology, optimize transportation and supply chains, and help scientists model physical systems with far greater accuracy. They could also challenge many of the encryption methods that currently protect digital communications, creating both opportunities and security risks. For these reasons, governments, universities, and technology companies are investing heavily in the field despite the significant engineering challenges that remain.`,
+    },
+  },
+  {
+    id: "S2",
+    round: "Round 1",
+    roundNum: 1,
+    questionNum: 2,
+    topic: "Science & Technology",
+    topicDisplay: "Science &amp; Technology",
+    question: `How does climate science actually work — what do climate models measure and how reliable are they?`,
+    claude: {
+      summary: `Think of a climate model like a very detailed recipe for how the planet's temperature changes based on different ingredients, like how much carbon dioxide gets added to the air. Scientists test these recipes by checking if they correctly predict climate changes that already happened in the past. When a recipe consistently gets the past right, scientists trust it more for forecasting the future, even though it cannot tell you the exact weather on a specific day next year.`,
+      p1: `Climate science works by building physical models of the Earth's atmosphere, oceans, ice, and land surface, then running them forward in time using the basic laws of thermodynamics and fluid dynamics. These models divide the planet into a three-dimensional grid and calculate how energy, moisture, and gases move between each cell, hour by hour, over simulated decades or centuries. Modern models incorporate dozens of variables, including solar radiation, greenhouse gas concentrations, cloud formation, ocean currents, and ice reflectivity.`,
+      p2: `What climate models actually measure is not a single prediction but a range of plausible futures based on different assumptions, particularly about how much greenhouse gas humanity continues to emit. Scientists run the same model hundreds of times with slightly different starting conditions to capture natural variability, then compare results across many independent models built by different research groups worldwide. This cross-validation is central to how confidence levels are established.`,
+      p3: `Reliability varies by question. Models are highly accurate at predicting large-scale trends like global average temperature rise, which has tracked closely with projections made decades ago. They are less precise at predicting specific regional impacts or exact timing of events, since local weather involves chaotic processes that are inherently harder to forecast years in advance.`,
+    },
+    gpt: {
+      summary: `Think of Earth like a giant house with windows, heaters, blankets, oceans, forests, and ice all interacting at once. Climate models are like detailed video-game versions of that house, built from real physics, where scientists can ask what happens if the blanket gets thicker. They are not perfect, but they are useful because they have repeatedly matched the big patterns scientists later observed. The main idea is simple: more heat-trapping gas means a warmer, less stable climate system.`,
+      p1: `Climate science works by combining physics, chemistry, biology, geology, and direct observation to understand how energy moves through Earth’s atmosphere, oceans, land, and ice. Scientists measure things like temperature, greenhouse gas concentrations, sea level, ocean heat, clouds, rainfall, ice cover, and sunlight reflected or absorbed by the planet.`,
+      p2: `Climate models are computer simulations that use known physical laws to test how the climate responds when variables change, especially carbon dioxide, methane, aerosols, land use, and solar energy. They are not crystal balls, but they are good at projecting broad trends, especially global warming, sea-level rise, and large-scale shifts in rainfall and extreme heat.`,
+      p3: `Their reliability comes from testing them against past climates, historical weather records, satellite data, and independent observations. Models are less precise at predicting local details decades ahead, but their central conclusion is very robust: adding greenhouse gases traps more heat and warms the planet.`,
+    },
+  },
+  {
+    id: "S3",
+    round: "Round 1",
+    roundNum: 1,
+    questionNum: 3,
+    topic: "Science & Technology",
+    topicDisplay: "Science &amp; Technology",
+    question: `What is CRISPR and what are the implications of editing the human genome?`,
+    claude: {
+      summary: `Think of your DNA as an enormous book with billions of letters, and CRISPR as a tool that can find one specific typo and fix it without disturbing anything else on the page. This precision is what makes it so powerful for treating diseases caused by a single genetic error. But because some edits could be passed down to children and grandchildren, society is still working out the rules for which kinds of edits should ever be allowed.`,
+      p1: `CRISPR is a gene-editing technology adapted from a natural defense system bacteria use against viruses. It works by pairing a guide molecule that matches a specific DNA sequence with an enzyme called Cas9, which acts like molecular scissors. Once the guide finds its target in the genome, Cas9 cuts the DNA at that precise location, allowing scientists to disable a gene, repair a mutation, or insert new genetic material.`,
+      p2: `The technology has already moved from laboratories into medicine. CRISPR-based treatments have been approved for sickle cell disease and beta thalassemia, both caused by single-gene mutations that the technology can directly correct in a patient's blood cells. Researchers are also exploring its use against cancers, inherited blindness, and viral infections like HIV, with dozens of clinical trials currently underway worldwide.`,
+      p3: `Editing the human genome raises distinct ethical questions depending on which cells are changed. Editing somatic cells, like blood or liver cells, affects only the treated patient. Editing embryos or reproductive cells would create changes passed to future generations, which is why germline editing remains banned or heavily restricted in most countries following the 2018 case of a scientist who edited human embryos in China.`,
+    },
+    gpt: {
+      summary: `DNA is like the instruction book inside living things, and CRISPR is a very precise pair of scissors for editing a sentence in that book. That could help fix dangerous typos that cause disease. But if people start rewriting the book for looks, intelligence, or status, the science becomes a social problem too. The power is exciting because it can heal, but scary because it can also be misused.`,
+      p1: `CRISPR is a gene-editing tool adapted from a natural defense system bacteria use against viruses. It lets scientists target a specific stretch of DNA and cut it, remove it, repair it, or sometimes replace it with a new sequence.`,
+      p2: `Its promise is enormous because many diseases are tied to genetic errors, including sickle cell disease, some cancers, inherited blindness, and rare disorders. CRISPR could also improve crops, fight pests, and help researchers understand how genes shape life.`,
+      p3: `The ethical stakes are just as large, especially when editing embryos or traits that can be passed to future generations. Treating disease is one thing; designing children for preferred traits raises questions about inequality, consent, disability, and who gets to decide what counts as “better.”`,
+    },
+  },
+  {
+    id: "S4",
+    round: "Round 1",
+    roundNum: 1,
+    questionNum: 4,
+    topic: "Science & Technology",
+    topicDisplay: "Science &amp; Technology",
+    question: `What is nuclear fusion and why has it taken so long to become a viable energy source?`,
+    claude: {
+      summary: `Imagine trying to recreate a tiny piece of the sun inside a machine on Earth, but the sun's gravity does the squeezing for free, while we have to build enormous magnets or lasers to do that job artificially. Every year scientists get a little closer, but building a fusion plant that reliably produces more electricity than it consumes, day after day, remains one of the hardest engineering problems humanity has ever attempted.`,
+      p1: `Nuclear fusion is the process that powers the sun: light atomic nuclei, typically hydrogen isotopes, are forced together under extreme heat and pressure until they fuse into heavier elements, releasing enormous amounts of energy in the process. Unlike nuclear fission, which splits heavy atoms and produces long-lived radioactive waste, fusion produces minimal radioactive byproducts and uses fuel sources that are abundant, such as deuterium extracted from seawater.`,
+      p2: `The challenge has always been recreating sun-like conditions on Earth. Fusion requires temperatures of over 100 million degrees Celsius, hot enough that matter exists as plasma, a charged gas that must be contained without touching any physical material. Scientists use powerful magnetic fields in donut-shaped reactors called tokamaks, or precisely aimed lasers, to confine and compress this plasma long enough for fusion reactions to occur.`,
+      p3: `For decades, every fusion reactor consumed more energy than it produced. That changed in December 2022, when the National Ignition Facility in California achieved net energy gain for the first time, producing more energy from a fusion reaction than the lasers put in. However, this was a single laboratory pulse lasting nanoseconds, not a sustained power source, and commercial fusion power plants are still estimated to be decades away.`,
+    },
+    gpt: {
+      summary: `Imagine trying to hold a tiny piece of star inside a machine without letting it touch the walls. If it works, it could give us clean energy from fuel found in seawater and lithium. The problem is that stars are huge and nature does the squeezing for free, while humans have to build the squeeze from scratch. Fusion matters because it could change energy forever, but only if it becomes practical outside the lab.`,
+      p1: `Nuclear fusion is the process that powers the Sun: light atoms, usually forms of hydrogen, are forced together so tightly that they merge and release energy. Unlike nuclear fission, which splits heavy atoms, fusion could produce huge amounts of electricity with no carbon emissions and far less long-lived radioactive waste.`,
+      p2: `The difficulty is that atomic nuclei repel each other, so fusion requires extreme temperatures, pressure, and confinement. On Earth, scientists must create conditions hotter than the Sun while keeping the fuel stable long enough to get more energy out than they put in.`,
+      p3: `It has taken so long because the physics is brutal and the engineering is even harder. Building materials, magnets, lasers, plasma controls, and energy systems that can survive and operate economically remains one of the hardest technological challenges humans have attempted.`,
+    },
+  },
+  {
+    id: "S5",
+    round: "Round 1",
+    roundNum: 1,
+    questionNum: 5,
+    topic: "Science & Technology",
+    topicDisplay: "Science &amp; Technology",
+    question: `How does a vaccine train the immune system and why do some people reject the science?`,
+    claude: {
+      summary: `Think of your immune system as a security team that gets much better at recognizing a threat once they have seen a photo of it beforehand. A vaccine is essentially that photo, given safely, so if the real threat ever shows up, security already knows exactly what to look for and can respond immediately. This is why vaccines have eliminated diseases like smallpox and dramatically reduced others like polio and measles, even though the people protected never experience the diseases the vaccines guard against.`,
+      p1: `Vaccines work by showing the immune system a harmless preview of a pathogen, such as a weakened virus, an inactivated virus, or just a piece of one like a protein or genetic instructions for making that protein. The immune system responds by producing antibodies and creating memory cells that recognize this specific invader. If the real pathogen is encountered later, these memory cells allow the body to mount a much faster and stronger defense, often preventing illness entirely or making it far milder.`,
+      p2: `This process mirrors how natural immunity develops after an infection, but without the risks of the actual disease. Modern vaccines use several different approaches: traditional methods using weakened or inactivated pathogens, and newer methods like mRNA vaccines, which deliver genetic instructions that cause cells to temporarily produce a harmless piece of the virus, training the immune system without ever introducing the virus itself.`,
+      p3: `Vaccine hesitancy has multiple roots, including historical medical abuses that damaged trust in certain communities, the rapid pace of development for newer vaccines like those for COVID-19, and the spread of misinformation linking vaccines to conditions like autism, a claim originating from a 1998 study that was later retracted and whose author lost his medical license. Some hesitancy also stems from the fact that vaccines prevent problems people never experience, making the benefit feel invisible compared to the immediate, visible nature of any side effects.`,
+    },
+    gpt: {
+      summary: `Think of a vaccine like a fire drill for your body. It lets your immune system practice before the real emergency happens. Some people fear the drill because they hear alarming stories or do not trust the people organizing it. But when the real fire comes, practice can make the difference between a small problem and a disaster.`,
+      p1: `A vaccine trains the immune system by showing it a harmless version, fragment, or genetic instruction related to a germ. The body learns to recognize that threat and prepares antibodies and immune cells so it can respond faster if the real infection appears.`,
+      p2: `This works because the immune system has memory. After vaccination, the body can often stop an infection earlier, reduce severe disease, and lower the chance of spreading illness to vulnerable people.`,
+      p3: `Some people reject vaccine science because of distrust in institutions, fear of side effects, misinformation, bad past medical experiences, religious or political identity, or confusion about risk. Vaccines are not perfect and can have side effects, but the scientific case for their public-health value is built from large-scale evidence across many decades.`,
+    },
+  },
+  {
+    id: "P1",
+    round: "Round 2",
+    roundNum: 2,
+    questionNum: 1,
+    topic: "Philosophy",
+    topicDisplay: "Philosophy",
+    question: `Does free will exist or are all our decisions predetermined?`,
+    claude: {
+      summary: `Think about the last time you chose what to eat for dinner. It felt like an open decision between options, shaped by your mood, what you'd eaten recently, and what sounded good. A determinist would say all of those factors, themselves the product of your biology and history, made the outcome inevitable before you decided anything. Yet the experience of weighing options still felt real and meaningful to you, which is exactly the puzzle that keeps this question alive after thousands of years of debate.`,
+      p1: `The question of free will sits at the intersection of physics, neuroscience, and philosophy, and thinkers have staked out three broad positions. Hard determinists argue that since the universe operates according to causal laws, every thought and decision is simply the latest link in an unbroken chain of prior causes, making the feeling of choice an illusion. Libertarians, in the philosophical sense, argue that humans possess a genuine ability to originate actions that are not fully determined by prior events. Compatibilists argue the debate is partly a matter of definition: free will simply means acting according to your own desires and reasoning without external coercion, which remains true even in a deterministic universe.`,
+      p2: `Neuroscience has added an empirical dimension to this ancient debate. Studies starting with Benjamin Libet in the 1980s found that brain activity associated with a decision can be detected before a person reports being consciously aware of choosing, suggesting our sense of deciding might come after the brain has already initiated the action. Critics argue these experiments involve trivial choices, like when to flick a wrist, and may not generalize to complex decisions involving deliberation over time.`,
+      p3: `What's at stake extends beyond armchair philosophy into how societies assign responsibility. If actions are fully determined by genetics, upbringing, and circumstance, this complicates traditional notions of moral blame and the justifications often given for punishment. Many philosophers argue that even in a determined universe, concepts like responsibility still serve a useful function, since holding people accountable shapes future behavior regardless of the metaphysics underlying it.`,
+    },
+    gpt: {
+      summary: `Picture choosing whether to apologize after an argument. Your pride, childhood, mood, and fear all push you one way, while your values and memory of hurting someone push another. Even if those forces have causes, the moment still feels meaningful because you are weighing them. Free will matters because responsibility, growth, and forgiveness all depend on how we understand that inner struggle.`,
+      p1: `Free will is the question of whether people truly choose their actions or whether every decision is the inevitable result of prior causes. If the universe is fully deterministic, then genes, upbringing, brain chemistry, and circumstance may shape every choice before a person feels they have made it.`,
+      p2: `Some philosophers argue that free will still exists if freedom means acting according to one’s reasons, desires, and character without external coercion. Others argue that this only describes the feeling of choice, not genuine independence from causality.`,
+      p3: `The most useful answer may be that human beings are neither completely self-created nor helpless machines. We are shaped by forces we did not choose, but we can reflect, learn, hesitate, imagine alternatives, and change patterns over time.`,
+    },
+  },
+  {
+    id: "P2",
+    round: "Round 2",
+    roundNum: 2,
+    questionNum: 2,
+    topic: "Philosophy",
+    topicDisplay: "Philosophy",
+    question: `How did Gilles Deleuze challenge traditional Western philosophy and why does his thinking still matter?`,
+    claude: {
+      summary: `Think about how a meme spreads online. It doesn't move from a single root outward in an orderly way; it gets remixed, recontextualized, and connects to other memes and ideas in unpredictable directions, with no central authority controlling its meaning or trajectory. That messy, interconnected, constantly-transforming process is closer to how Deleuze thought all of reality actually works, compared to the neat, tree-like categories philosophy traditionally imposed on it.`,
+      p1: `Gilles Deleuze, writing often with Félix Guattari, rejected the foundational assumptions that had organized Western philosophy since Plato: the idea that reality is best understood through fixed identities, stable categories, and hierarchical structures branching from a single root, like a tree with trunk and branches. Instead, Deleuze proposed thinking in terms of difference itself, rather than treating difference as merely a deviation from some prior sameness or essence.`,
+      p2: `Central to this is the concept of the rhizome, borrowed from botany, where certain plants spread through underground networks with no single root or center, any point connecting to any other. Deleuze and Guattari used this as a model for thought, culture, and society: rather than tracing ideas back to an origin or arranging them in hierarchies, a rhizomatic approach maps connections, multiplicities, and becomings, things in constant process rather than fixed states with stable identities.`,
+      p3: `This thinking has proven influential precisely because it offers tools for understanding networked, decentralized phenomena that don't fit neatly into traditional categories: the internet, social movements without central leadership, ecosystems, and identities that resist single, fixed labels. Deleuze's concept of deterritorialization, the process by which something is uprooted from its original context and given new meaning elsewhere, has become a key tool for analyzing globalization, migration, and cultural change.`,
+    },
+    gpt: {
+      summary: `Imagine moving to a new city and realizing you are not just one fixed person. Different friends, jobs, neighborhoods, and pressures bring out different versions of you. Deleuze helps explain that life is made of changing connections, not just permanent labels. His philosophy matters because most people experience themselves as something still unfolding.`,
+      p1: `Gilles Deleuze challenged traditional Western philosophy by rejecting the idea that thought should begin with fixed identities, stable essences, or universal categories. Instead, he emphasized difference, becoming, movement, desire, multiplicity, and the ways reality is constantly produced through relations.`,
+      p2: `Where much philosophy asks what something is, Deleuze often asks what it does, how it connects, and what new possibilities it creates. His work with Félix Guattari also challenged rigid models of society, psychology, politics, and culture by exploring networks, flows, machines, and nonhierarchical forms of organization.`,
+      p3: `His thinking still matters because modern life is shaped by systems that are fluid rather than fixed: digital networks, identity shifts, migration, capitalism, media, and ecological interdependence. Deleuze gives language for understanding a world that is less like a statue and more like a storm.`,
+    },
+  },
+  {
+    id: "P3",
+    round: "Round 2",
+    roundNum: 2,
+    questionNum: 3,
+    topic: "Philosophy",
+    topicDisplay: "Philosophy",
+    question: `Is there such a thing as objective truth or is everything a matter of perspective?`,
+    claude: {
+      summary: `Consider the difference between water boils at 100 degrees Celsius at sea level and this song is beautiful. The first claim seems true regardless of anyone's opinion, testable by anyone with the right equipment. The second claim seems to depend on the listener in some way, yet most people don't experience their aesthetic judgments as completely arbitrary either. That gap, between claims that feel discoverable and claims that feel constructed, is exactly where this ancient philosophical question continues to live.`,
+      p1: `The question of whether objective truth exists separates into at least two different debates that often get conflated. The first concerns the physical world: do mountains, atoms, and stars exist independently of anyone observing or thinking about them? Most philosophers, including those skeptical of objectivity in other domains, accept some form of realism here, since the physical universe appears to operate according to consistent laws regardless of human beliefs about it.`,
+      p2: `The second debate concerns truths that depend on human frameworks: morality, aesthetics, and meaning. Moral relativists argue that what counts as right varies across cultures and historical periods with no neutral standpoint from which to judge between them, pointing to the vast differences in ethical norms across human societies. Moral realists counter that some ethical claims, like torturing children for entertainment is wrong, seem to hold across virtually all cultures, suggesting at least some moral truths may be objective even if our access to them is imperfect.`,
+      p3: `A third position, often associated with pragmatism, sidesteps the realism debate entirely: rather than asking whether truth exists out there independent of us, pragmatists ask whether a belief proves useful and coherent within a system of inquiry. On this view, scientific theories aren't simply true in some absolute sense, but are the most useful and well-tested frameworks we currently have for predicting and explaining the world, subject to revision as we learn more.`,
+    },
+    gpt: {
+      summary: `Think of a car accident witnessed from four corners of an intersection. Each person sees something real, but none sees everything. Perspective explains why accounts differ; objective truth is the fact that something specific actually happened. The work is putting the pieces together carefully instead of pretending every version is equally complete.`,
+      p1: `Objective truth means that some claims are true regardless of what anyone believes, feels, or perceives. For example, if water boils under specific conditions, that fact does not depend on personal opinion.`,
+      p2: `Perspective still matters because humans access truth through language, culture, memory, power, and limited senses. Two people can describe the same event differently without both being equally accurate about every detail.`,
+      p3: `A balanced view is that truth exists, but our grasp of it is often partial and contested. The challenge is not to abandon truth, but to build better methods for approaching it: evidence, logic, humility, dialogue, and correction.`,
+    },
+  },
+  {
+    id: "P4",
+    round: "Round 2",
+    roundNum: 2,
+    questionNum: 4,
+    topic: "Philosophy",
+    topicDisplay: "Philosophy",
+    question: `What did Nietzsche mean by "God is dead" and what were the consequences of that idea?`,
+    claude: {
+      summary: `Think about a person whose entire sense of right and wrong was shaped by rules they never questioned, inherited from family or culture, and then one day they realize those rules no longer feel binding or true to them. The relief of that freedom can quickly become disorienting: if those old rules don't apply, what does? Nietzsche believed Western civilization was approaching exactly this moment on a massive scale, and his work was an attempt to think through what might come next, for better or worse.`,
+      p1: `When Friedrich Nietzsche wrote that God is dead in his 1882 work The Gay Science, he wasn't making a literal claim about a deity's existence or non-existence, nor celebrating the statement as good news. He was diagnosing a cultural shift already underway in 19th-century Europe: the gradual erosion of Christianity's authority as the foundation for morality, meaning, and social order, driven by scientific advances, secularization, and Enlightenment rationalism that had made traditional religious belief increasingly untenable for educated Europeans, even if they continued attending church.`,
+      p2: `The famous passage describes a madman running through a marketplace announcing God's death to people who laugh at him, not realizing the implications of what they've lost. Nietzsche's concern was that European morality, concepts of good and evil, the meaning of suffering, the basis for human dignity, had been built on a religious foundation for nearly two thousand years. Remove that foundation, and the entire structure built upon it becomes unstable, even if most people hadn't yet noticed the cracks.`,
+      p3: `The consequences Nietzsche foresaw were significant: without God as the ultimate source of values, humanity faced what he called nihilism, the recognition that there might be no inherent meaning or purpose to existence at all. Rather than viewing this as purely catastrophic, however, Nietzsche saw it as an opportunity, however dangerous, for humans to create new values and new sources of meaning rather than inheriting them ready-made. His concept of the Übermensch, or overman, represented his vision of someone capable of this kind of value-creation.`,
+    },
+    gpt: {
+      summary: `Imagine growing up with one clear rulebook for life, then realizing no one around you fully believes in it anymore. That can feel liberating, but also terrifying, because now choices need deeper justification. Nietzsche’s point matters whenever people ask what gives life meaning if old answers no longer convince them. The everyday version is the anxiety of freedom after certainty disappears.`,
+      p1: `When Nietzsche wrote that “God is dead,” he did not mean that a supernatural being had literally died. He meant that modern science, secular thought, and historical criticism had weakened the authority of Christianity as the shared moral foundation of European life.`,
+      p2: `The consequence was a crisis of meaning. If traditional religion no longer guarantees values, then people must face the frightening freedom of creating, choosing, and justifying values themselves.`,
+      p3: `Nietzsche feared that this vacuum could lead to nihilism, conformity, resentment, or dangerous substitute religions such as nationalism and ideology. But he also saw a possibility: human beings might become strong enough to create life-affirming values without relying on inherited certainty.`,
+    },
+  },
+  {
+    id: "P5",
+    round: "Round 2",
+    roundNum: 2,
+    questionNum: 5,
+    topic: "Philosophy",
+    topicDisplay: "Philosophy",
+    question: `What is the philosophy of absurdism and how did Camus argue we should respond to a meaningless world?`,
+    claude: {
+      summary: `Imagine training intensely for months for a marathon, knowing that finishing won't change the world, won't be remembered in a hundred years, and won't answer any of life's bigger questions. Yet you train anyway, and the experience of pushing through training, the discipline, the small daily victories, has value regardless of whether it adds up to anything meaningful in some grand sense. Camus's famous conclusion, that one must imagine Sisyphus happy, suggests that finding this kind of value within the struggle itself, rather than waiting for external validation or cosmic purpose, is the most honest response to an absurd universe.`,
+      p1: `Absurdism is the philosophical position that there is a fundamental conflict between humans' innate desire to find meaning and purpose in life, and the universe's apparent indifference to that desire, offering no inherent answers. The term absurd here doesn't mean silly or ridiculous, but rather describes this collision: the gap between what we want from existence and what existence actually provides.`,
+      p2: `Albert Camus explored this most directly in his 1942 essay The Myth of Sisyphus, using the Greek myth of a king condemned by the gods to roll a boulder up a hill for eternity, only for it to roll back down each time he nears the top. Camus argued this punishment, designed as the ultimate futility, actually serves as a metaphor for human existence itself: we labor, strive, and seek meaning in a universe that offers no guarantee our efforts matter in any cosmic sense.`,
+      p3: `Camus considered and rejected two common responses to this predicament. The first is physical suicide, ending the confrontation by ending existence itself. The second is what he called philosophical suicide, embracing religious or ideological systems that provide ready-made meaning, thereby avoiding the absurd confrontation rather than facing it honestly. Instead, Camus argued for a third path: rebellion, consciously living in full awareness of life's absence of inherent meaning while choosing to engage with it anyway, finding value in the struggle itself rather than in any guaranteed outcome.`,
+    },
+    gpt: {
+      summary: `Think of working hard for something and then realizing life does not guarantee fairness, reward, or a grand explanation. Absurdism begins in that feeling. Camus says the answer is not to give up or pretend everything makes perfect sense. It is to live anyway, love anyway, and make the climb your own.`,
+      p1: `Absurdism is the philosophy that human beings naturally search for meaning, order, and purpose in a universe that does not provide clear answers. The absurd is born from the collision between our hunger for meaning and the world’s silence.`,
+      p2: `Albert Camus argued that we should not escape this tension through suicide, false hope, or comforting illusions. Instead, we should honestly accept the absurd and still live with intensity, freedom, and defiance.`,
+      p3: `For Camus, the heroic response is not to solve meaninglessness but to keep living fully in spite of it. His image of Sisyphus, endlessly pushing a boulder uphill, becomes powerful because Sisyphus knows his fate and still refuses inner defeat.`,
+    },
+  },
+  {
+    id: "H1",
+    round: "Round 3",
+    roundNum: 4,
+    questionNum: 1,
+    topic: "History",
+    topicDisplay: "History",
+    question: `What caused the fall of the Roman Empire and what parallels exist with the world today?`,
+    claude: {
+      summary: `You can see echoes of Rome's fall in any modern debate about whether a country is overextending itself militarily relative to its economic strength, or whether persistent inflation is eroding public confidence faster than leaders can respond. The Roman case is a reminder that empires rarely fall from a single blow; they erode gradually until a final event, often unremarkable in isolation, simply makes a long-developing collapse visible all at once.`,
+      p1: `The fall of the Western Roman Empire in 476 CE resulted from the convergence of multiple long-term pressures rather than any single catastrophic event. Economic strain from decades of military overspending, currency debasement that fueled persistent inflation, and an increasingly unsustainable tax burden on shrinking agricultural output weakened the empire's foundations over centuries. Political instability compounded these problems: the third century alone saw over twenty emperors, many assassinated by their own troops, making long-term governance and planning nearly impossible.`,
+      p2: `External pressure from migrating peoples, often displaced by their own conflicts further east, accelerated the collapse. The Roman military increasingly relied on these same groups as soldiers, blurring the line between defenders and those the empire was meant to be defended against. By the time Rome fell, the Western empire had already fragmented into territories controlled by various Germanic kingdoms, with the final emperor, Romulus Augustulus, deposed by a Germanic general who saw little reason to maintain the imperial fiction any longer.`,
+      p3: `Historians frequently draw parallels to challenges facing major powers today: imperial overextension where military commitments abroad outpace economic capacity at home, currency and inflation crises that erode public trust in institutions, and political polarization that makes coordinated long-term governance difficult. The Eastern Roman Empire, centered in Constantinople, avoided this fate for another thousand years, suggesting that institutional resilience and adaptability mattered as much as raw power in determining which parts of Rome survived and which collapsed.`,
+    },
+    gpt: {
+      summary: `Rome is still visible in today’s roads, laws, languages, architecture, calendars, and ideas about citizenship and empire. Modern governments still ask Roman questions: how big can a system get before it becomes unmanageable, and how long can power survive without trust? The lesson is not that history repeats perfectly. It is that even the strongest systems can become fragile from within.`,
+      p1: `The Roman Empire fell in the West because of a long combination of pressures rather than one dramatic cause. Political instability, civil wars, corruption, economic strain, military overextension, reliance on mercenaries, disease, and external invasions all weakened the empire over centuries.`,
+      p2: `Rome also struggled to manage its enormous size and the cost of defending long borders. As Germanic groups entered imperial territory and central authority weakened, the western empire gradually lost the ability to collect taxes, maintain armies, and control provinces.`,
+      p3: `The parallels today are not exact, but Rome remains a warning about inequality, institutional decay, polarization, fiscal stress, migration pressure, and the cost of global power. Its fall shows that complex societies often decline when many solvable problems compound faster than institutions can adapt.`,
+    },
+  },
+  {
+    id: "H2",
+    round: "Round 3",
+    roundNum: 4,
+    questionNum: 2,
+    topic: "History",
+    topicDisplay: "History",
+    question: `How did the Transatlantic slave trade shape the modern world economy?`,
+    claude: {
+      summary: `You can trace a direct line from a financial institution's modern presence in a major city to capital first accumulated through slavery-era trade and finance centuries ago, capital that was then continuously reinvested and compounded across generations. Understanding this history helps explain why discussions of reparations and historical accountability often focus not just on the moral wrong of slavery itself, but on the argument that specific, identifiable economic advantages were created then and have persisted, compounding, ever since.`,
+      p1: `The Transatlantic slave trade forcibly transported an estimated 12.5 million Africans to the Americas between the 16th and 19th centuries, with around 10.7 million surviving the brutal Middle Passage. This system was not peripheral to early modern economic development but central to it: the labor of enslaved people produced sugar, cotton, tobacco, and other commodities that generated enormous wealth for European trading nations, plantation owners, and the merchants, bankers, and insurers who financed and profited from every stage of the trade.`,
+      p2: `This wealth helped fund the early growth of industries and institutions that became foundational to modern capitalism. Profits from slave-produced commodities and from the trade itself flowed into banking, insurance, and shipbuilding industries in cities like Liverpool, Bristol, and later New York, helping finance early industrial infrastructure. Major financial institutions that still exist today have documented historical ties to slavery-era insurance and financing, ranging from insuring slave ships and their human cargo to accepting enslaved people as loan collateral.`,
+      p3: `The economic structures established during this period created lasting global inequalities that persisted long after formal abolition. Many former colonial economies remained dependent on the same commodity exports established during the slavery era, often controlled by the same families or institutions, while wealth generated from those exports had already been invested and compounded in Europe and North America for generations. This created an economic head start that shaped global wealth distribution patterns still visible today.`,
+    },
+    gpt: {
+      summary: `The effects are still visible in who owns wealth, where poverty is concentrated, and how racial inequality appears across housing, education, health, and employment. Many global cities and institutions grew rich from trade systems connected to slavery. The past did not simply disappear when slavery was abolished. It left structures that still shape opportunity today.`,
+      p1: `The Transatlantic slave trade forcibly moved millions of Africans to the Americas and turned human beings into property for profit. It supplied labor for plantations producing sugar, cotton, tobacco, coffee, and other commodities that became central to global trade.`,
+      p2: `This system enriched European empires, American colonies, banks, insurers, shipbuilders, merchants, and manufacturers. It also helped finance industrial capitalism while violently extracting labor, land, culture, and life from enslaved Africans and their descendants.`,
+      p3: `Its economic legacy is visible in racial wealth gaps, land ownership patterns, trade routes, policing, migration, and the development of modern financial institutions. The modern world economy was not built only by innovation and markets, but also by coercion, theft, and racial hierarchy.`,
+    },
+  },
+  {
+    id: "H3",
+    round: "Round 3",
+    roundNum: 4,
+    questionNum: 3,
+    topic: "History",
+    topicDisplay: "History",
+    question: `What actually triggered World War One — was it inevitable or a series of accidents?`,
+    claude: {
+      summary: `Think of a row of dominoes set up months or years in advance, each one representing an alliance, a military plan, or a national rivalry. The assassination was the finger that tipped the first domino, but the dominoes themselves, and their arrangement, had been put in place long before anyone knew which event would set them falling. Whether you call the war inevitable often depends on whether you're asking about the dominoes' arrangement or about the specific finger that tipped the first one.`,
+      p1: `World War One's outbreak in 1914 resulted from the collision of long-building structural tensions with a specific triggering event. The structural causes included a complex web of military alliances that meant a conflict between any two major powers risked drawing in the rest of Europe, an arms race that had created enormous standing armies and a culture of military planning built around speed and mobilization, and rising nationalism that made compromise look like weakness in the eyes of domestic populations.`,
+      p2: `The immediate trigger was the assassination of Archduke Franz Ferdinand of Austria-Hungary by a Bosnian Serb nationalist in Sarajevo in June 1914. What followed was a month of diplomatic crisis where Austria-Hungary, backed by Germany, issued an ultimatum to Serbia designed to be rejected, while Russia mobilized to support Serbia, triggering Germany's pre-existing military plans that required attacking France first through Belgium, which in turn brought Britain into the war.`,
+      p3: `Whether the war was inevitable remains genuinely contested among historians. Some argue the alliance system and military plans created a kind of doomsday machine where any sufficiently serious crisis would trigger general war once mobilization began, since the plans were rigid and offered leaders little room to de-escalate once set in motion. Others argue that key decision-makers, particularly in Germany and Austria-Hungary, made specific choices that escalated rather than contained the crisis, choices that could plausibly have gone differently, meaning the war was a result of decisions rather than impersonal historical forces.`,
+    },
+    gpt: {
+      summary: `Its consequences are visible today in national borders, the Middle East, international institutions, memorial culture, and the memory of modern industrial war. The conflict helped lead to the Russian Revolution, the collapse of empires, and conditions that later shaped World War Two. It reminds the modern world how alliances and escalation can outrun diplomacy. A single crisis can become global when mistrust is already built into the system.`,
+      p1: `World War One was triggered by the assassination of Archduke Franz Ferdinand of Austria-Hungary in Sarajevo on June 28, 1914. That event set off a chain reaction involving ultimatums, alliances, mobilization plans, nationalist ambitions, imperial rivalries, and military timetables.`,
+      p2: `The war was not inevitable in the sense that no human choice could have stopped it. But Europe had become so tense and militarized that a regional crisis could quickly become a continental war.`,
+      p3: `Leaders made decisions under fear, pride, misinformation, and rigid planning, turning a political crisis into catastrophe. World War One was therefore both structural and accidental: a powder keg existed, but people still struck the match.`,
+    },
+  },
+  {
+    id: "H4",
+    round: "Round 3",
+    roundNum: 4,
+    questionNum: 4,
+    topic: "History",
+    topicDisplay: "History",
+    question: `How did the Cold War shape the geopolitical world we live in today?`,
+    claude: {
+      summary: `When you see news coverage of NATO troop movements in Eastern Europe, or tensions over Taiwan's status, or the ongoing division between North and South Korea, you're looking at the living legacy of decisions and divisions made during the Cold War, many of which were intended as temporary arrangements but became permanent features of the international system. The Cold War didn't end so much as its central questions, about spheres of influence, ideological competition, and great-power rivalry, simply found new contexts to play out in.`,
+      p1: `The Cold War, spanning roughly 1947 to 1991, was a decades-long geopolitical, ideological, and military rivalry between the United States and the Soviet Union, organized around two competing visions of economic and political organization: capitalism and democracy versus communism and one-party state control. Rather than direct military conflict between the superpowers, which both sides avoided due to the threat of nuclear annihilation, the rivalry played out through proxy wars, an arms race, espionage, and competition for influence across the developing world.`,
+      p2: `This competition reshaped the map and institutions of the modern world in ways still visible today. NATO and what became the European Union both emerged partly from Cold War-era efforts to unify Western Europe against Soviet influence. Many current international borders and conflicts trace directly back to Cold War-era decisions: the division of Korea, ongoing tensions in the Middle East shaped by superpower-backed regimes, and conflicts in Africa and Latin America where Cold War proxy fighting left lasting political instability.`,
+      p3: `The end of the Cold War in 1991 didn't resolve these dynamics so much as transform them. The unipolar moment of unchallenged American global influence that followed has itself given way to renewed great-power competition, with NATO's eastward expansion and Russia's response to it representing perhaps the most direct continuation of Cold War-era geographic and ideological fault lines into the present day.`,
+    },
+    gpt: {
+      summary: `The Cold War is visible today in NATO expansion debates, nuclear anxiety, divided Korea, and the way countries still compete for influence without always fighting directly. Many modern conflicts make more sense when seen through the alliances and wounds created after 1945. It also explains why technology, space, sports, and culture became arenas of political competition. The world still lives inside structures built during that rivalry.`,
+      p1: `The Cold War shaped the modern world by dividing global politics around rivalry between the United States and the Soviet Union. It was not a direct war between the two superpowers, but a global struggle fought through arms races, espionage, propaganda, proxy wars, coups, aid programs, and ideological competition.`,
+      p2: `It created institutions and alliances that still matter, including NATO, nuclear deterrence systems, intelligence networks, and patterns of U.S. and Russian influence. It also shaped conflicts in Korea, Vietnam, Afghanistan, Latin America, Africa, and the Middle East.`,
+      p3: `The Cold War ended with the collapse of the Soviet Union, but its geography and habits did not vanish. Nuclear weapons, military blocs, distrust between Russia and the West, and debates over democracy, capitalism, and authoritarianism still carry its imprint.`,
+    },
+  },
+  {
+    id: "H5",
+    round: "Round 3",
+    roundNum: 4,
+    questionNum: 5,
+    topic: "History",
+    topicDisplay: "History",
+    question: `How did the Mongol Empire become the largest contiguous empire in history and what was its lasting impact?`,
+    claude: {
+      summary: `Think about how a single trade route connecting distant regions can transform what's available in local markets thousands of miles away, the way global shipping networks today bring goods from one side of the world to the other within days. The Mongol Empire created something similar across Eurasia eight centuries ago: by controlling and protecting trade routes spanning from China to Eastern Europe, they accelerated the exchange of everything from spices and silk to diseases and military technologies, with consequences that reshaped the populations and power balances of multiple continents for centuries afterward.`,
+      p1: `The Mongol Empire, founded by Genghis Khan in 1206, became history's largest contiguous land empire through a combination of military innovation, organizational structure, and ruthless strategic flexibility. Mongol armies were composed primarily of highly mobile horse archers capable of covering enormous distances and executing complex coordinated maneuvers, supported by a meritocratic command structure where promotion depended on demonstrated ability rather than birth, unusual for the era.`,
+      p2: `Beyond military tactics, the Mongols excelled at adapting and absorbing the technologies and administrative systems of conquered peoples. They incorporated Chinese siege engineers, Persian administrators, and local knowledge systems wherever they expanded, while maintaining a unified communication network across the empire through the yam, a relay system of way-stations that allowed messages and officials to travel at remarkable speed across thousands of miles.`,
+      p3: `The empire's lasting impact extended well beyond its eventual fragmentation into successor khanates. The Pax Mongolica, the relative stability the empire imposed across Eurasia, dramatically increased trade along the Silk Road, facilitating exchange of goods, technologies, and ideas between China, Persia, and Europe on a scale not seen before. This included the transmission of gunpowder technology westward and likely contributed to the spread of the Black Death, which devastated populations from Asia to Europe in the 14th century.`,
+    },
+    gpt: {
+      summary: `Their legacy is visible today in trade routes, genetic traces, national memories, military history, and the long relationship between Europe and Asia. The Mongol era accelerated global connection before modern globalization. It shows that empires can destroy cities while also linking worlds. Much of today’s interconnected Eurasian history passed through the roads they controlled.`,
+      p1: `The Mongol Empire became the largest contiguous empire in history through extraordinary cavalry warfare, disciplined organization, mobility, intelligence gathering, and the leadership of Genghis Khan and his successors. Mongol armies moved quickly, coordinated over vast distances, adapted foreign technologies, and often used psychological warfare to make resistance collapse.`,
+      p2: `They were not only destroyers; they also governed, taxed, protected trade, and incorporated administrators, engineers, doctors, and scholars from conquered peoples. Their empire connected China, Central Asia, Persia, Russia, and parts of the Middle East into a vast exchange network.`,
+      p3: `The lasting impact was enormous: trade expanded across the Silk Roads, technologies and ideas traveled faster, diplomatic contacts widened, and disease also spread more easily. The Mongols helped knit Eurasia together, even through conquest and violence.`,
+    },
+  },
+  {
+    id: "C1",
+    round: "Round 4",
+    roundNum: 3,
+    questionNum: 1,
+    topic: "Culture & Society",
+    topicDisplay: "Culture &amp; Society",
+    question: `How did social media fundamentally change the way humans relate to each other?`,
+    claude: {
+      summary: `Think about the difference between calling a friend to catch up, where you're focused entirely on them, versus scrolling through a feed where that same friend's life update appears between an advertisement and a stranger's vacation photos, competing for your attention with dozens of other things. Both are technically staying connected, but the quality of attention, the depth of engagement, and what the relationship actually feels like to both people involved can be very different, even though the underlying information, that your friend did something noteworthy, might be identical in both cases.`,
+      p1: `Social media fundamentally restructured human relationships by replacing the natural constraints that had governed social connection for most of human history. Previously, maintaining a relationship required ongoing investment, proximity, shared activities, or deliberate effort to stay in touch. Social media removed these constraints, allowing people to maintain hundreds or thousands of weak connections simultaneously, while also collapsing the boundaries between different social contexts, friends, family, colleagues, and acquaintances now all exist within the same feed, seeing the same content.`,
+      p2: `This shift changed not just how many connections people maintain, but the nature of those connections. Relationships became more visible and quantifiable, measured in followers, likes, and engagement metrics, transforming social validation into something that could be tracked numerically in real time. Communication shifted from primarily private, synchronous exchanges, like phone calls or face-to-face conversations, toward asynchronous, often public-facing performance, where posts are crafted with an awareness of an audience rather than a specific recipient.`,
+      p3: `The consequences of this shift remain actively debated and researched. Some studies link heavy social media use, particularly among adolescents, to increased rates of anxiety, depression, and loneliness, despite, or perhaps because of, increased connectivity. Other research emphasizes benefits: maintaining long-distance relationships, finding communities around shared identities or interests that might be geographically rare, and providing support networks for people who are isolated in their immediate physical environment.`,
+    },
+    gpt: {
+      summary: `This matters even to someone who barely thinks about social media because it changes the emotional weather everyone lives in. It affects how people date, argue, vote, shop, mourn, and judge themselves. It can make distant strangers feel close and close friends feel inadequate. The question is not whether social media is good or bad, but what kind of humans it trains us to become.`,
+      p1: `Social media changed human relationships by making connection constant, visible, and measurable. Friendship, status, news, entertainment, dating, activism, and identity all moved into platforms designed around attention and engagement.`,
+      p2: `This created real benefits: people can maintain distant relationships, find communities, organize movements, learn quickly, and share creative work without traditional gatekeepers. But it also intensified comparison, loneliness, outrage, misinformation, surveillance, and pressure to perform a curated version of the self.`,
+      p3: `The deepest change is that social life became partly algorithmic. What people see, discuss, envy, fear, and desire is increasingly shaped by systems optimized not for wisdom or intimacy, but for keeping attention.`,
+    },
+  },
+  {
+    id: "C2",
+    round: "Round 4",
+    roundNum: 3,
+    questionNum: 2,
+    topic: "Culture & Society",
+    topicDisplay: "Culture &amp; Society",
+    question: `What is cultural appropriation and where is the line between appreciation and exploitation?`,
+    claude: {
+      summary: `Consider the difference between a chef studying authentic techniques from a culinary tradition for years, crediting their teachers, and opening a restaurant that celebrates that cuisine, versus a company mass-producing a sacred religious symbol as a fashion accessory without any acknowledgment of its origin or meaning. Both involve elements moving between cultures, but one involves engagement, learning, and credit, while the other involves extraction, where meaning is stripped away and only the surface aesthetic remains, often for profit that doesn't benefit the community the elements came from.`,
+      p1: `Cultural appropriation refers to members of a dominant culture adopting elements, styles, symbols, or practices from a marginalized culture, often without understanding, crediting, or compensating the culture of origin. The concept becomes contentious because cultural exchange itself is not new or inherently problematic; cultures have always borrowed from each other, and most cultural traditions are themselves blends of earlier influences. The question is what distinguishes harmful appropriation from the natural, ongoing process of cultural exchange and evolution.`,
+      p2: `Several factors tend to separate appreciation from exploitation in how these debates unfold. Power dynamics matter significantly: when a historically marginalized group's cultural elements are adopted by a dominant group, particularly when that same group has historically been mocked, discriminated against, or actively prevented from practicing those same traditions, the appropriation can feel like a continuation of that power imbalance rather than genuine cultural exchange. Context and meaning also matter: sacred or ceremonial elements stripped of their original significance and used as costume or decoration tend to generate more concern than, say, culinary traditions that have always been more fluid and shared.`,
+      p3: `Economic dimensions frequently drive these controversies as well. When members of a dominant culture profit financially from cultural elements, fashion designs, music styles, hairstyles, while members of the originating culture face discrimination or economic barriers for the same elements, this disparity, profiting from what others are penalized for, becomes a focal point. The question of credit and acknowledgment, whether origins are recognized and whether originating communities have a voice in how their culture is represented, also shapes whether borrowing is perceived as collaborative or extractive.`,
+    },
+    gpt: {
+      summary: `This matters because culture is not just decoration. It carries memory, struggle, identity, grief, pride, and survival. When people treat it casually, they may reopen wounds they do not see. Thoughtful exchange can bring people together, but careless taking can turn someone else’s heritage into a prop.`,
+      p1: `Cultural appropriation happens when people take symbols, styles, rituals, music, clothing, or practices from another culture without respect, understanding, permission, or fair recognition. It becomes especially harmful when the borrowing comes from a dominant group taking from a marginalized group.`,
+      p2: `The line between appreciation and exploitation depends on context. Appreciation usually involves learning, credit, humility, consent, and respect, while exploitation strips meaning away, profits from stereotypes, or treats sacred and historical elements as costumes.`,
+      p3: `Cultures have always mixed, borrowed, and evolved, so the issue is not cultural exchange itself. The issue is power: who benefits, who is mocked, who is erased, and who gets punished for the same thing others are praised for using.`,
+    },
+  },
+  {
+    id: "C3",
+    round: "Round 4",
+    roundNum: 3,
+    questionNum: 3,
+    topic: "Culture & Society",
+    topicDisplay: "Culture &amp; Society",
+    question: `How has the rise of streaming fundamentally changed how we consume and value art?`,
+    claude: {
+      summary: `Think about the difference between buying a single album you'd saved up for, listening to it repeatedly because it represented a real investment, versus having access to every album ever recorded for one monthly fee, where any individual song competes with millions of others for a few seconds of your attention before you skip to the next thing. The music itself might be equally good in both scenarios, but the relationship between listener and content, how much attention, patience, and value gets assigned to any single piece, has fundamentally changed.`,
+      p1: `Streaming fundamentally restructured how value is assigned to creative work by shifting the dominant business model from ownership and scarcity to access and abundance. Previously, music, films, and shows existed as discrete products people purchased individually, an album, a movie ticket, a DVD, with prices reflecting the cost and perceived value of that specific work. Streaming replaced this with subscription models where a single monthly fee grants access to vast libraries, fundamentally decoupling the price consumers pay from the value of any individual piece of content.`,
+      p2: `This shift changed how creators are compensated in ways that have proven controversial. Under streaming models, artists typically receive fractions of a cent per play, meaning income depends on aggregate volume across millions of plays rather than per-unit sales. This has advantaged content that performs well in passive, algorithm-driven listening or viewing, background music, easily-digestible content optimized for engagement metrics, while making it harder for niche, experimental, or slow-building work to generate sustainable income through the same channels that once supported it.`,
+      p3: `The abundance streaming provides has also changed how audiences relate to content itself. When choosing what to watch or listen to involves no marginal cost, since you're already paying the same subscription regardless, content becomes more disposable; people sample more, finish less, and develop less attachment to individual works compared to eras when choosing to buy an album or see a film represented a meaningful commitment of money and attention that encouraged deeper engagement with what you'd chosen.`,
+    },
+    gpt: {
+      summary: `This matters because the way people receive art changes the way they care about it. A song found in a feed may feel different from an album saved for months and played on repeat. Streaming gives more access than ever, but it can also make art feel weightless. The challenge is keeping depth, patience, and respect alive in a world of infinite choice.`,
+      p1: `Streaming changed art by making music, film, and television instantly available, personalized, and abundant. Instead of owning albums, DVDs, or scheduled broadcasts, people now access enormous libraries through subscriptions and algorithms.`,
+      p2: `This increased convenience and discovery, especially for niche artists and international work. But it also changed value: when everything is always available, individual works can feel more disposable, and artists often earn less per listen or view.`,
+      p3: `Streaming also shifted power from studios, labels, critics, and stores toward platforms that control recommendation, visibility, and data. Art now competes not just with other art, but with endless content optimized for attention.`,
+    },
+  },
+  {
+    id: "C4",
+    round: "Round 4",
+    roundNum: 3,
+    questionNum: 4,
+    topic: "Culture & Society",
+    topicDisplay: "Culture &amp; Society",
+    question: `How has fashion functioned as a political and cultural statement throughout history?`,
+    claude: {
+      summary: `Think about a uniform, whether a military uniform, a school uniform, or a corporate dress code. Uniforms exist precisely because clothing communicates so powerfully that institutions want to control what that communication says, suppressing individual expression in favor of group identity, hierarchy, and conformity. The fact that institutions invest so much effort in controlling what people wear is itself evidence of how much political and social meaning clothing carries; if it didn't matter, no one would bother regulating it.`,
+      p1: `Fashion has functioned as political and cultural communication for as long as clothing has existed, because what people wear is immediately visible and communicates information about identity, status, and allegiance before a single word is spoken. Sumptuary laws throughout history, regulations dictating who could wear certain fabrics, colors, or styles based on social class, demonstrate that ruling classes have long understood clothing as a marker of social hierarchy worth legally controlling.`,
+      p2: `Specific garments have repeatedly become symbols of resistance and identity movements. During the Indian independence movement, Gandhi's promotion of homespun cotton, khadi, over British textiles was a direct economic and political statement, encouraging Indians to boycott British goods while asserting self-sufficiency. The pink pussyhats worn during the 2017 Women's March became instantly recognizable symbols of a specific political moment, demonstrating how a simple garment can rapidly become shorthand for an entire movement's identity and message.`,
+      p3: `Fashion also functions as a form of cultural preservation and assertion, particularly for groups whose cultural expression has historically been suppressed. Traditional dress often becomes a way of visibly maintaining and communicating cultural identity, especially in contexts where assimilation pressures have pushed against maintaining visible markers of difference. Conversely, adopting the fashion of a dominant culture, or rejecting it, can itself become a political statement about belonging, resistance, or assimilation.`,
+    },
+    gpt: {
+      summary: `This matters because everyone participates in fashion, even by trying not to. Clothes affect how people are treated before they speak. They can protect, exclude, empower, or stereotype. Fashion is one of the most ordinary ways society makes power visible.`,
+      p1: `Fashion has always been more than clothing; it is a public language of class, gender, religion, rebellion, labor, and belonging. What people wear can signal obedience, resistance, aspiration, mourning, sexuality, nationalism, or solidarity.`,
+      p2: `Throughout history, clothing has marked political and cultural change, from revolutionary uniforms and suffragette white to zoot suits, punk, Black pride styles, and feminist rejection of restrictive dress codes. Fashion often turns the body into a visible argument.`,
+      p3: `It can also expose inequality because trends are shaped by labor, colonial histories, luxury markets, beauty standards, and who is allowed to look “professional” or “respectable.” The same outfit can be celebrated on one person and punished on another.`,
+    },
+  },
+  {
+    id: "C5",
+    round: "Round 4",
+    roundNum: 3,
+    questionNum: 5,
+    topic: "Culture & Society",
+    topicDisplay: "Culture &amp; Society",
+    question: `How has architecture shaped the way we live and think about community?`,
+    claude: {
+      summary: `Think about the difference between an apartment building where the only way to encounter neighbors is a brief elevator ride versus one with a shared courtyard, mailroom, or rooftop space where people naturally pause and interact. The building's actual function, providing housing, is identical in both cases, but one design produces strangers living in proximity while the other produces something closer to an actual community, simply through how the physical space is organized. Architecture doesn't just house human activity; it actively shapes what kinds of human connection are possible or likely.`,
+      p1: `Architecture shapes human behavior and community in ways that often operate below conscious awareness, because the built environment determines not just where people can go, but how easily they encounter each other, what kinds of interactions are possible, and which activities a space implicitly encourages or discourages. A street designed primarily for cars moving quickly between destinations creates a fundamentally different social environment than a street designed for pedestrians to walk slowly and linger, even if both technically connect the same two points.`,
+      p2: `Urban planning decisions made decades ago continue to shape community patterns today. The mid-20th century shift toward car-dependent suburban development, with separated zones for housing, shopping, and work connected primarily by roads, created environments where casual, unplanned social interaction became rare; you drive directly from your driveway to a destination's parking lot, with few opportunities for the kind of incidental encounters that happen when walking through a shared public space. This pattern has been linked to increased social isolation, particularly for those who don't drive, including elderly people, children, and those with disabilities.`,
+      p3: `Conversely, design choices that create what urban planners call third places, spaces beyond home and work where people gather informally, parks, plazas, cafes with outdoor seating, libraries, can dramatically increase the frequency and quality of community interaction. Cities that have invested in walkable design, mixed-use development where housing and amenities exist close together, and public spaces designed for lingering rather than just passing through, tend to show measurably higher rates of social trust and community engagement among residents.`,
+    },
+    gpt: {
+      summary: `This matters because the built environment quietly trains daily life. A bench, staircase, courtyard, school, or apartment layout can change who meets whom and who feels welcome. People often think community is only about values, but it is also about design. The places we build end up building us back.`,
+      p1: `Architecture shapes life by organizing how people move, gather, rest, work, worship, shop, and encounter strangers. Buildings and streets are not neutral containers; they influence behavior, mood, privacy, safety, and social connection.`,
+      p2: `Dense neighborhoods with parks, sidewalks, public transit, and mixed-use spaces encourage different habits than isolated suburbs, highways, gated communities, or office towers. Architecture can create community, but it can also enforce separation by class, race, age, ability, and income.`,
+      p3: `Good architecture makes belonging easier by giving people shared spaces, human-scale streets, and places to pause. Bad architecture can make people feel lonely, watched, rushed, excluded, or trapped.`,
+    },
+  },
+  {
+    id: "E1",
+    round: "Round 5",
+    roundNum: 5,
+    questionNum: 1,
+    topic: "Economics",
+    topicDisplay: "Economics",
+    question: `What actually caused the 2008 financial crisis and could it happen again?`,
+    claude: {
+      summary: `For an ordinary person, the 2008 crisis meant job losses as the broader economy contracted sharply, with unemployment in the U.S. roughly doubling within two years. Many people saw the value of their homes fall below what they owed on their mortgages, and retirement savings invested in stock markets lost significant value just as many were approaching retirement age. The recovery from these effects took years for many households, even as financial markets themselves recovered relatively quickly once government interventions stabilized the banking system.`,
+      p1: `The 2008 financial crisis originated in the U.S. housing market, but its roots lay in how mortgage risk had been transformed and distributed throughout the financial system. Banks issued increasingly risky mortgages, including to borrowers with poor credit histories, then bundled thousands of these mortgages into complex securities sold to investors worldwide. Credit rating agencies gave many of these securities top ratings despite the underlying risk, while a relatively small market for insurance-like products called credit default swaps meant that when mortgages began defaulting, losses rippled through institutions that had never directly issued a single mortgage.`,
+      p2: `When housing prices, which had risen for years partly fueled by this easy credit, began falling in 2006 and 2007, the securities built on those mortgages lost value rapidly, and so did the insurance written against them. Because major financial institutions were deeply interconnected, holding each other's debt and honoring contracts with each other, the failure of one institution threatened to cascade into others. The collapse of Lehman Brothers in September 2008 triggered exactly this kind of cascade, freezing credit markets globally as institutions stopped trusting each other's solvency.`,
+      p3: `Whether it could happen again depends on which specific mechanisms you're asking about. Regulations passed after 2008, including higher capital requirements for banks and restrictions on certain risky trading activities, specifically targeted the mechanisms that amplified the 2008 crisis. However, financial crises throughout history have consistently emerged from whatever the current era's version of this time is different risk-taking happens to be, meaning the next crisis, if one occurs, would likely originate from a different sector or mechanism that current regulations don't specifically address, even if the broad pattern, excessive risk-taking during good times followed by a sharp correction, tends to repeat.`,
+    },
+    gpt: {
+      summary: `For ordinary people, this kind of crisis means lost jobs, tighter credit, falling home values, weaker retirement accounts, and years of slower wage growth. Even people who never bought risky investments can pay the price when the system breaks. A distant Wall Street problem can become a kitchen-table problem very quickly. That is why financial regulation matters in daily life.`,
+      p1: `The 2008 financial crisis was caused by a housing bubble, risky mortgage lending, excessive borrowing, weak regulation, and complex financial products tied to mortgage debt. Banks and investors treated housing prices as if they would keep rising, then spread the risk through securities that few people fully understood.`,
+      p2: `When many borrowers began defaulting and housing prices fell, the value of those financial products collapsed. Trust between banks froze, major institutions failed or needed rescue, and the crisis spread through the global economy.`,
+      p3: `Could it happen again? A crisis exactly like 2008 is less likely because some rules changed, but financial systems still create danger when debt, speculation, opacity, and misplaced confidence build up together.`,
+    },
+  },
+  {
+    id: "E2",
+    round: "Round 5",
+    roundNum: 5,
+    questionNum: 2,
+    topic: "Economics",
+    topicDisplay: "Economics",
+    question: `What is inflation and why do governments struggle to control it?`,
+    claude: {
+      summary: `For most people, inflation means watching grocery bills, rent, and everyday expenses rise faster than their paychecks, effectively making them poorer even if their nominal income stays the same or grows slightly. This erosion happens gradually enough that it's often more noticeable in retrospect, looking back at how much things cost five or ten years ago, than in any single shopping trip, but the cumulative effect over time can significantly impact how far a fixed income or savings account actually stretches.`,
+      p1: `Inflation is the general increase in prices across an economy over time, meaning each unit of currency buys less than it did before. At its core, inflation results from too much money chasing too few goods, though the specific causes can vary: demand-pull inflation occurs when consumer spending outpaces the economy's ability to produce goods and services, while cost-push inflation occurs when the costs of production, like wages or raw materials, rise and businesses pass these costs to consumers through higher prices.`,
+      p2: `Central banks attempt to control inflation primarily through interest rates. Raising interest rates makes borrowing more expensive, which tends to slow spending and investment, cooling demand and theoretically bringing price increases back toward target levels, often around 2% annually in many developed economies. The challenge is that interest rate changes work with significant time lags, often six months to two years before their full effects are felt, meaning central banks are essentially trying to steer the economy based on data that's already somewhat outdated, while their actions won't show full results until well into the future.`,
+      p3: `This creates a difficult balancing act, because the tools used to fight inflation also tend to slow economic growth and increase unemployment, creating political pressure to act more cautiously than might be ideal for price stability alone. Additionally, some causes of inflation, like supply chain disruptions or geopolitical events affecting energy prices, don't respond to interest rate changes at all, since they're not caused by excess demand but by constraints on supply that monetary policy can't directly fix.`,
+    },
+    gpt: {
+      summary: `For ordinary people, inflation shows up at the grocery store, rent payment, gas station, and monthly bills. A raise may not feel like a raise if prices rise faster than income. Borrowing for a home, car, or credit card can become more expensive when interest rates go up. Inflation matters because it quietly changes how secure people feel.`,
+      p1: `Inflation is a general rise in prices, which means money buys less than it used to. It can happen when demand grows faster than supply, when energy or food costs jump, when supply chains break, when wages and prices chase each other upward, or when too much money circulates relative to goods and services.`,
+      p2: `Governments struggle to control inflation because the tools are blunt and the causes are often mixed. Raising interest rates can cool spending, but it can also slow hiring, make loans expensive, and risk recession.`,
+      p3: `Inflation is also psychological because expectations matter. If businesses and workers believe prices will keep rising, they may raise prices and wages preemptively, making inflation harder to stop.`,
+    },
+  },
+  {
+    id: "E3",
+    round: "Round 5",
+    roundNum: 5,
+    questionNum: 3,
+    topic: "Economics",
+    topicDisplay: "Economics",
+    question: `What is degrowth economics and is it a serious alternative to the growth-at-all-costs model?`,
+    claude: {
+      summary: `For an ordinary person, degrowth would mean a fundamentally different relationship with consumption and work: potentially shorter work weeks and less consumer goods turnover, but also potentially less access to the constant stream of new products, services, and conveniences that economic growth has historically delivered. Whether this trade-off, less material abundance in exchange for more leisure time, environmental stability, and a different measure of what counts as a good life, represents progress or regression depends heavily on values that go beyond economics into questions about what a good life actually consists of.`,
+      p1: `Degrowth economics challenges the assumption, shared across mainstream economic and political thought, that continuous economic growth, measured by GDP, is both possible and desirable indefinitely. Degrowth proponents argue that infinite growth on a planet with finite resources is a physical impossibility, and that pursuing growth as the primary economic goal drives environmental destruction, resource depletion, and climate change, regardless of how green that growth claims to be, since even renewable energy and recycling require material inputs and energy that scale with overall economic activity.`,
+      p2: `Rather than simply advocating for economic shrinkage, which critics often assume is the proposal, degrowth argues for a fundamental restructuring of what economies prioritize: shifting away from measuring success through production and consumption volumes toward measuring wellbeing, environmental health, and equitable distribution of resources. This might mean reducing certain sectors significantly, like industries built around planned obsolescence or unnecessary consumption, while expanding others, like healthcare, education, and renewable infrastructure, regardless of whether the net effect on GDP is positive or negative.`,
+      p3: `Whether this represents a serious alternative depends partly on how one weighs its core argument against its practical challenges. The argument that infinite growth on a finite planet is mathematically impossible is difficult to refute on physical grounds alone. However, critics point out that degrowth proposals often lack detailed plans for how to manage the transition without causing significant disruption, particularly for developing economies that argue they need growth to lift populations out of poverty, and for managing debt-based financial systems that assume future growth to remain stable.`,
+    },
+    gpt: {
+      summary: `For ordinary people, degrowth would matter through things like housing, transportation, work hours, energy bills, food systems, and public services. It asks whether a better life always requires buying more stuff. It could mean fewer disposable products and more durable goods, but also major political fights over who gives up what. The daily impact depends on whether sacrifice falls on everyone equally or mostly on people with less power.`,
+      p1: `Degrowth economics argues that wealthy societies should reduce unnecessary production and consumption rather than treating endless economic growth as the main goal. It focuses on ecological limits, well-being, public services, shorter work time, repair, redistribution, and lower material throughput.`,
+      p2: `Supporters say the current growth model depends on extracting too much energy and material from the planet. They argue that a good society should measure success by health, stability, equality, leisure, and ecological survival, not only by GDP.`,
+      p3: `Critics worry that degrowth could reduce innovation, employment, tax revenue, and living standards if handled badly. The serious version of degrowth is not about making everyone poorer, but about redesigning economies so less waste and less inequality can still mean better lives.`,
+    },
+  },
+  {
+    id: "E4",
+    round: "Round 5",
+    roundNum: 5,
+    questionNum: 4,
+    topic: "Economics",
+    topicDisplay: "Economics",
+    question: `How did globalization reshape the global economy and who actually benefits from it?`,
+    claude: {
+      summary: `For an ordinary person, globalization's effects depend heavily on where they live and what they do for work. Consumers everywhere generally benefit from lower prices on manufactured goods, electronics, clothing, and countless other products that would cost significantly more if produced domestically. But workers in industries that moved overseas often experienced job losses, wage stagnation, or the need to retrain for different work entirely, meaning the same global economic shift simultaneously made life more affordable for some while making livelihoods more precarious for others, often without clear mechanisms to compensate those who bore the costs.`,
+      p1: `Globalization describes the increasing interconnection of national economies through trade, investment, technology, and the movement of goods, services, capital, and people across borders. This process accelerated dramatically in the late 20th century, driven by reduced trade barriers through agreements and organizations like the World Trade Organization, container shipping that made transporting goods across oceans dramatically cheaper, and communication technologies that allowed coordination of complex supply chains across multiple countries.`,
+      p2: `The reshaping this caused was profound: manufacturing that once happened primarily within individual countries became distributed across global supply chains, where a single product might involve raw materials from one country, components manufactured in several others, final assembly in yet another, before being shipped worldwide. This allowed companies to take advantage of lower labor costs in developing countries while accessing consumer markets in wealthier nations, fundamentally restructuring where economic activity happens globally.`,
+      p3: `Who benefits from this restructuring is genuinely contested and depends on which group and timeframe you examine. Developing countries that became manufacturing hubs, particularly in East Asia, saw significant economic growth and poverty reduction, lifting hundreds of millions of people out of extreme poverty over recent decades. However, within wealthier countries, manufacturing job losses concentrated in specific regions and communities, even as consumers benefited from lower prices on goods, creating a situation where aggregate national benefits coexisted with significant regional and class-based costs that weren't evenly distributed.`,
+    },
+    gpt: {
+      summary: `For ordinary people, globalization is visible in cheaper electronics, imported food, outsourced customer service, job competition, and the sudden effect of a faraway factory shutdown on local prices. It can make life more affordable while also making work feel less secure. It connects people to the world but also exposes them to shocks they cannot control. The question is not whether globalization helps or hurts, but who gets protected when it changes lives.`,
+      p1: `Globalization reshaped the world economy by making goods, money, services, technology, and labor networks move across borders more easily. Companies built supply chains that stretch across continents, producing parts in one country, assembling in another, and selling everywhere.`,
+      p2: `It lowered prices for many consumers and helped some countries grow rapidly through manufacturing, trade, and investment. It also weakened some local industries, pressured wages in certain sectors, increased dependence on fragile supply chains, and gave multinational corporations enormous leverage.`,
+      p3: `The benefits have been uneven. Owners of capital, highly skilled workers, global firms, and export-driven regions often gained, while many industrial workers and vulnerable communities faced insecurity and displacement.`,
+    },
+  },
+  {
+    id: "E5",
+    round: "Round 5",
+    roundNum: 5,
+    questionNum: 5,
+    topic: "Economics",
+    topicDisplay: "Economics",
+    question: `How does wealth inequality actually get created and why is it so hard to reverse?`,
+    claude: {
+      summary: `For an ordinary person, wealth inequality affects daily life in ways beyond just income differences: access to quality education, often tied to property values and local tax bases, access to capital for starting a business or buying a home, and even health outcomes, since wealth provides buffers against financial shocks that can otherwise cascade into housing instability or inability to afford healthcare. The gap isn't just about who has more money; it's about how starting conditions shape which opportunities are realistically available to pursue in the first place, regardless of individual effort or talent.`,
+      p1: `Wealth inequality emerges from the compounding effects of how income, assets, and opportunity interact over time, rather than from any single cause. Income inequality, differences in what people earn from work, is one factor, but wealth, which includes assets like property, investments, and businesses, compounds in ways income alone doesn't. Someone who can save and invest a portion of their income benefits from returns on those investments, returns that themselves generate further returns, creating exponential growth in wealth that someone living paycheck to paycheck, regardless of how hard they work, simply cannot access.`,
+      p2: `This compounding effect interacts powerfully with inheritance and starting conditions. Wealth accumulated by one generation, whether through business success, property ownership, or investment, can be transferred to the next generation, who then have a head start: capital to invest, property that appreciates, or a financial cushion that allows for risk-taking, like starting a business or pursuing additional education, that someone without that cushion cannot afford to risk. Over multiple generations, these advantages compound, meaning wealth gaps between families can persist and widen across generations even when individual members work equally hard.`,
+      p3: `The difficulty in reversing this stems from the same compounding mechanics that created it. Policy interventions like progressive taxation or inheritance taxes face the challenge that wealth, once accumulated, generates the resources, financial and political, to influence the policies that might redistribute it, creating a feedback loop where existing wealth concentration can shape the rules governing future wealth distribution. Additionally, global capital mobility means wealth can often relocate to jurisdictions with more favorable tax treatment, limiting the effectiveness of policies enacted by any single country acting alone.`,
+    },
+    gpt: {
+      summary: `For ordinary people, wealth inequality affects rent, school quality, job options, debt, healthcare, and whether an emergency becomes a setback or a disaster. Two people with the same salary can live very different lives if one has family wealth and the other has family debt. Inequality is not just about luxury; it is about security and freedom. The harder wealth concentrates, the harder it becomes for work alone to change someone’s future.`,
+      p1: `Wealth inequality is created when assets grow faster and more reliably than wages. People who own homes, stocks, businesses, land, and inherited wealth can gain money while sleeping, while people who depend only on paychecks must trade time for income.`,
+      p2: `It is reinforced by education gaps, housing markets, tax policy, discrimination, debt, family transfers, healthcare costs, and unequal access to investment opportunities. Once wealth accumulates, it buys better neighborhoods, safer schools, legal help, political influence, and more chances to create additional wealth.`,
+      p3: `It is hard to reverse because wealth compounds across generations. Policies that reduce inequality often face resistance from those who benefit from the current system and can shape politics, media, and markets.`,
+    },
+  },
+];
+/* ══════════════════════════════════════════════
+   RUNTIME STATE
+   ══════════════════════════════════════════════ */
+
+// Closed questions with results (populate as each closes)
+// Format: { id: 'S1', claudePct: 58, gptPct: 42, claudeWon: true }
+const CLOSED_RESULTS = [
+  // { id: 'S1', claudePct: 58, gptPct: 42, claudeWon: true },
 ];
 
-/* ── STATE ── */
-// Randomize A/B slot so brand color can never map to a model
-const flip = Math.random() < 0.5;
-const slotA = flip ? CONTENT.B : CONTENT.A;
-const slotB = flip ? CONTENT.A : CONTENT.B;
+// Accumulated points (update manually after each question closes)
+const POINTS = { claude: 0, gpt: 0 };
+const TOPIC_POINTS = {
+  'Science & Technology': { claude: 0, gpt: 0 },
+  'Philosophy':           { claude: 0, gpt: 0 },
+  'History':              { claude: 0, gpt: 0 },
+  'Culture & Society':    { claude: 0, gpt: 0 },
+  'Economics':            { claude: 0, gpt: 0 },
+};
 
-let phase = 'voting'; // voting | voted | revealed
+// Runtime
+let currentQ = null;
+let slotA = null;
+let slotB = null;
+let phase = 'voting';
 let userChoice = null;
 let currentTheme = 'light';
 let pollTimer = null;
 
-// Deadline: set a real date here when you launch.
-// Format: new Date('2026-06-15T18:00:00Z')
-// For now uses 72h from first load (replace before going live).
-const DEADLINE = new Date(Date.now() + 72 * 3600 * 1000);
-const VOTE_KEY = 'aiclash_q1_voted';
-const QUESTION_ID = 'Q1';
-const ROUND_ID = 'R1';
-const TOPIC_NAME = 'Science & Technology';
+/* ══════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════ */
 
-// Set this to your deployed Apps Script /exec URL
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1NKV7_LINjbxbS50Chpu6Ku9bYIiEKMwE8eWke6QxrkFFZ8uYPRV7qwXqq5EnM0mu/exec';
-const POLL_INTERVAL_MS = 30000; // 30 seconds
-
-/* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
+  resolveCurrentQuestion();
   populateContent();
   renderRounds();
+  renderTopics();
+  renderScoreboard();
   startCountdown();
   restoreVote();
-
-  // Always fetch live results, even before the visitor votes,
-  // and keep polling so the pre-vote scoreboard is real too.
   fetchLiveTally();
-  if (!pollTimer) {
-    pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
-  }
+  if (!pollTimer) pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
 });
 
+function resolveCurrentQuestion() {
+  if (CURRENT_OVERRIDE) {
+    currentQ = QUESTIONS.find(q => q.id === CURRENT_OVERRIDE) || QUESTIONS[0];
+  } else {
+    // Auto: find first question whose deadline hasn't passed
+    // Since all deadlines derive from DEADLINE (single current window), just use QUESTIONS[0]
+    currentQ = QUESTIONS[0];
+  }
+  // Randomize A/B per session
+  const sessionKey = 'aiclash_flip_' + currentQ.id;
+  let flip = sessionStorage.getItem(sessionKey);
+  if (flip === null) {
+    flip = Math.random() < 0.5 ? '1' : '0';
+    sessionStorage.setItem(sessionKey, flip);
+  }
+  slotA = flip === '1' ? currentQ.gpt   : currentQ.claude;
+  slotB = flip === '1' ? currentQ.claude : currentQ.gpt;
+  slotA.model = flip === '1' ? 'gpt' : 'claude';
+  slotB.model = flip === '1' ? 'claude' : 'gpt';
+}
+
+/* ══════════════════════════════════════════════
+   CONTENT
+   ══════════════════════════════════════════════ */
+
 function populateContent() {
+  const q = currentQ;
+  // Hero eyebrow
+  document.getElementById('heroEyebrow').textContent =
+    `${q.round} · ${q.topic} · Question ${q.questionNum} of 5`;
+  // Vote section
+  document.getElementById('qRoundBadge').textContent = q.round;
+  document.getElementById('qTopicBadge').innerHTML = q.topicDisplay;
+  document.getElementById('questionText').textContent = q.question;
   // Summaries
   document.getElementById('summaryA').textContent = slotA.summary;
   document.getElementById('summaryB').textContent = slotB.summary;
@@ -555,11 +1037,14 @@ function populateContent() {
   ['A','B'].forEach(side => {
     const slot = side === 'A' ? slotA : slotB;
     const el = document.getElementById('deep' + side);
-    el.innerHTML = slot.paragraphs.map(p => `<p>${p}</p>`).join('');
+    el.innerHTML = [slot.p1, slot.p2, slot.p3].map(p => `<p>${p}</p>`).join('');
   });
 }
 
-/* ── COUNTDOWN ── */
+/* ══════════════════════════════════════════════
+   COUNTDOWN
+   ══════════════════════════════════════════════ */
+
 function startCountdown() {
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -576,22 +1061,25 @@ function updateCountdown() {
   const h = Math.floor(diff / 3600000);
   const m = Math.floor((diff % 3600000) / 60000);
   const s = Math.floor((diff % 60000) / 1000);
-  const timeEl = document.getElementById('countdownTime');
-  timeEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
-  const urgent = diff < 6 * 3600000;
-  timeEl.classList.toggle('urgent', urgent);
+  const el = document.getElementById('countdownTime');
+  el.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+  el.classList.toggle('urgent', diff < 6 * 3600000);
 }
 
 function pad(n) { return String(Math.max(0,n)).padStart(2,'0'); }
 
-/* ── VOTING ── */
+/* ══════════════════════════════════════════════
+   VOTING
+   ══════════════════════════════════════════════ */
+
+const VOTE_KEY = 'aiclash_voted_' + (CURRENT_OVERRIDE || 'S1');
+
 function castVote(choice) {
   if (phase !== 'voting') return;
   phase = 'voted';
   userChoice = choice;
   sessionStorage.setItem(VOTE_KEY, choice);
 
-  // Lock buttons
   ['A','B'].forEach(s => {
     const btn = document.getElementById('vote' + s);
     const selected = s === choice;
@@ -612,30 +1100,27 @@ function castVote(choice) {
     }
   });
 
-  // Hide pre-vote note, show tally
   document.getElementById('preVoteNote').style.display = 'none';
   document.getElementById('tallyBlock').style.display = 'block';
-
-  // Update tally note
   document.getElementById('tallyNote').innerHTML =
     'You voted for <strong style="color:var(--text-strong)">Response ' + choice + '</strong>. Identities stay hidden until the window closes.';
 
-  // Send to Apps Script
   sendVote(choice);
-
-  // Refresh live results immediately and ensure polling is running
   fetchLiveTally();
-  if (!pollTimer) {
-    pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
-  }
+  if (!pollTimer) pollTimer = setInterval(fetchLiveTally, POLL_INTERVAL_MS);
 }
 
 function sendVote(choice) {
-  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('YOUR_GOOGLE')) return;
   fetch(APPS_SCRIPT_URL, {
     method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ question: QUESTION_ID, round: ROUND_ID, topic: TOPIC_NAME, vote: choice, slot: choice === 'A' ? slotA.model : slotB.model, timestamp: new Date().toISOString() })
+    body: JSON.stringify({
+      question: currentQ.id, round: currentQ.round,
+      topic: currentQ.topic, vote: choice,
+      slot: choice === 'A' ? slotA.model : slotB.model,
+      timestamp: new Date().toISOString()
+    })
   }).catch(() => {});
 }
 
@@ -644,47 +1129,31 @@ function restoreVote() {
   if (saved) castVote(saved);
 }
 
-/* ── LIVE TALLY (polling) ─────────────────────────────────────
-   Fetches real vote counts from the Apps Script and updates the
-   tally bar + scoreboard. Tallied by MODEL, then mapped back to
-   this session's A/B slots for display.
-   ──────────────────────────────────────────────────────────── */
-function fetchLiveTally() {
-  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
-  if (phase === 'revealed') return;
+/* ══════════════════════════════════════════════
+   LIVE TALLY
+   ══════════════════════════════════════════════ */
 
-  const url = APPS_SCRIPT_URL + '?question=' + encodeURIComponent(QUESTION_ID);
-  fetch(url)
-    .then(res => res.json())
-    .then(data => updateTallyDisplay(data))
-    .catch(() => {});
+function fetchLiveTally() {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('YOUR_GOOGLE')) return;
+  if (phase === 'revealed') return;
+  const url = APPS_SCRIPT_URL + '?question=' + encodeURIComponent(currentQ.id);
+  fetch(url).then(r => r.json()).then(updateTallyDisplay).catch(() => {});
 }
 
 function updateTallyDisplay(data) {
-  // data: { claudeVotes, gptVotes, claudePct, gptPct, total }
   const aPct = slotA.model === 'claude' ? data.claudePct : data.gptPct;
   const bPct = slotB.model === 'claude' ? data.claudePct : data.gptPct;
   const noVotes = data.total === 0;
 
-  // Tally bar (only visible while voting/voted)
   const fillA = document.getElementById('tallyFillA');
   const fillB = document.getElementById('tallyFillB');
   if (fillA && fillB) {
-    if (noVotes) {
-      // Even split width so the bar renders, but label it honestly
-      fillA.style.width = '50%';
-      fillB.style.width = '50%';
-      fillA.querySelector('span').textContent = 'A · —';
-      fillB.querySelector('span').textContent = '— · B';
-    } else {
-      fillA.style.width = aPct + '%';
-      fillB.style.width = bPct + '%';
-      fillA.querySelector('span').textContent = 'A · ' + aPct + '%';
-      fillB.querySelector('span').textContent = bPct + '% · B';
-    }
+    fillA.style.width = noVotes ? '50%' : aPct + '%';
+    fillB.style.width = noVotes ? '50%' : bPct + '%';
+    fillA.querySelector('span').textContent = noVotes ? 'A · —' : 'A · ' + aPct + '%';
+    fillB.querySelector('span').textContent = noVotes ? '— · B' : bPct + '% · B';
   }
 
-  // Scoreboard cards (live, blind)
   const numA = document.getElementById('scoreNumA');
   const numB = document.getElementById('scoreNumB');
   if (numA && numB && phase !== 'revealed') {
@@ -692,49 +1161,39 @@ function updateTallyDisplay(data) {
     numB.textContent = noVotes ? '—' : bPct + '%';
   }
 
-  // Vote counts
-  const tallyCount = document.getElementById('tallyVoteCount');
-  if (tallyCount) {
-    tallyCount.textContent = data.total.toLocaleString() + ' votes so far';
-  }
-  const labelA = document.getElementById('scoreLabelA');
-  const labelB = document.getElementById('scoreLabelB');
-  if (labelA && labelB && phase !== 'revealed') {
-    labelA.textContent = data.total.toLocaleString() + ' votes';
-    labelB.textContent = data.total.toLocaleString() + ' votes';
+  const tc = document.getElementById('tallyVoteCount');
+  if (tc) tc.textContent = data.total.toLocaleString() + ' votes so far';
+  const lA = document.getElementById('scoreLabelA');
+  const lB = document.getElementById('scoreLabelB');
+  if (lA && lB && phase !== 'revealed') {
+    lA.textContent = data.total.toLocaleString() + ' votes';
+    lB.textContent = data.total.toLocaleString() + ' votes';
   }
 
-  // Stash latest percentages for use at reveal time
   slotA.percent = aPct;
   slotB.percent = bPct;
 }
 
-/* ── REVEAL ── */
+/* ══════════════════════════════════════════════
+   REVEAL
+   ══════════════════════════════════════════════ */
+
 function revealResults() {
   if (phase === 'revealed') return;
   phase = 'revealed';
-
   if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
 
-  // Update countdown
   document.getElementById('countdownWrap').style.display = 'none';
   document.getElementById('votingClosedBadge').style.display = 'inline-flex';
-
-  // Reveal response card headers
   updateResponseHeader('A', slotA.model);
   updateResponseHeader('B', slotB.model);
-
-  // Hide tally, show reveal
   document.getElementById('tallyBlock').style.display = 'none';
   document.getElementById('voteArea').style.display = 'none';
   document.getElementById('preVoteNote').style.display = 'none';
   document.getElementById('revealBlock').style.display = 'block';
-
-  // Render reveal cards
   document.getElementById('revealA').innerHTML = buildRevealCard('A', slotA);
   document.getElementById('revealB').innerHTML = buildRevealCard('B', slotB);
 
-  // Reveal note
   if (userChoice) {
     const chosen = userChoice === 'A' ? slotA : slotB;
     const name = chosen.model === 'claude' ? 'Claude' : 'ChatGPT';
@@ -742,8 +1201,6 @@ function revealResults() {
     document.getElementById('revealNote').innerHTML =
       'You voted <strong style="color:var(--text-strong)">Response ' + userChoice + '</strong> — that was <strong style="color:' + color + '">' + name + '</strong>.';
   }
-
-  // Update scoreboard to brand mode
   updateScoreboardRevealed();
 }
 
@@ -751,71 +1208,71 @@ function updateResponseHeader(side, model) {
   const isClaude = model === 'claude';
   const accent = isClaude ? 'var(--claude-orange)' : 'var(--gpt-black)';
   const name = isClaude ? 'Claude · Anthropic' : 'ChatGPT · OpenAI';
-  const header = document.getElementById('header' + side);
-  header.style.borderBottomColor = accent;
-  header.style.transition = 'border-color var(--dur-slow)';
-  const glyph = document.getElementById('glyph' + side);
-  glyph.style.color = accent;
-  const nameEl = document.getElementById('name' + side);
-  nameEl.textContent = name;
-  nameEl.style.color = 'var(--text-strong)';
-  nameEl.style.fontWeight = '700';
+  document.getElementById('header' + side).style.borderBottomColor = accent;
+  const g = document.getElementById('glyph' + side);
+  g.style.color = accent;
+  const n = document.getElementById('name' + side);
+  n.textContent = name;
+  n.style.color = 'var(--text-strong)';
+  n.style.fontWeight = '700';
 }
 
 function buildRevealCard(side, slot) {
   const isClaude = slot.model === 'claude';
   const cfg = isClaude
-    ? { bg:'var(--claude-cream)', fg:'var(--claude-ink)', accent:'var(--claude-orange)', org:'Anthropic', head:'var(--font-claude-head)', body:'var(--font-claude-body)', radius:'var(--radius-lg)', border:'rgba(217,119,87,0.3)', dot:'' }
-    : { bg:'var(--gpt-mist)', fg:'var(--gpt-black)', accent:'var(--gpt-black)', org:'OpenAI', head:'var(--font-gpt)', body:'var(--font-gpt)', radius:'var(--radius-md)', border:'rgba(13,13,13,0.12)', dot:'<span style="width:8px;height:8px;border-radius:50%;background:var(--gpt-green);display:inline-block"></span>' };
-  const outcomeLabel = slot.outcome === 'won' ? 'Winner' : slot.outcome === 'lost' ? 'Runner-up' : 'Tie';
+    ? {bg:'var(--claude-cream)',fg:'var(--claude-ink)',accent:'var(--claude-orange)',org:'Anthropic',head:'var(--font-claude-head)',body:'var(--font-claude-body)',radius:'var(--radius-lg)',border:'rgba(217,119,87,0.3)',dot:''}
+    : {bg:'var(--gpt-mist)',fg:'var(--gpt-black)',accent:'var(--gpt-black)',org:'OpenAI',head:'var(--font-gpt)',body:'var(--font-gpt)',radius:'var(--radius-md)',border:'rgba(13,13,13,0.12)',dot:'<span style="width:8px;height:8px;border-radius:50%;background:var(--gpt-green);display:inline-block"></span>'};
+  const pct = slot.percent || 50;
+  const isWinner = isClaude
+    ? (POINTS.claude > POINTS.gpt ? true : null)
+    : null;
+  const outcome = slot.percent > (100 - slot.percent) ? 'Winner' : slot.percent < (100 - slot.percent) ? 'Runner-up' : 'Tie';
   const name = isClaude ? 'Claude' : 'ChatGPT';
-
   return `<div style="background:${cfg.bg};color:${cfg.fg};border:1px solid ${cfg.border};border-radius:${cfg.radius};padding:28px 30px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
       <span style="font-family:var(--font-display);font-weight:900;font-size:24px;line-height:1;color:${cfg.accent}">${side}</span>
       <span style="width:1px;height:20px;background:currentColor;opacity:0.2"></span>
       <span style="display:inline-flex;align-items:center;gap:8px;font-family:${cfg.head};font-weight:600;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;color:${cfg.accent}">${cfg.dot}${cfg.org}</span>
-      <span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:${cfg.bg};background:${cfg.accent};border:1px solid ${cfg.accent};padding:4px 11px;border-radius:var(--radius-pill)">${outcomeLabel}</span>
+      <span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:${cfg.bg};background:${cfg.accent};padding:4px 11px;border-radius:var(--radius-pill)">${outcome}</span>
     </div>
-    <div style="font-family:${cfg.head};font-weight:${isClaude?600:700};font-size:30px;line-height:1.05;letter-spacing:${isClaude?0:'-0.01em'};margin-bottom:12px">Response ${side} was ${name}</div>
-    <div style="font-family:${cfg.body};font-size:15px;line-height:1.6;opacity:0.85">Took ${slot.percent}% of the vote.</div>
+    <div style="font-family:${cfg.head};font-weight:${isClaude?600:700};font-size:30px;line-height:1.05;margin-bottom:12px">Response ${side} was ${name}</div>
+    <div style="font-family:${cfg.body};font-size:15px;line-height:1.6;opacity:0.85">Took ${pct}% of the vote.</div>
   </div>`;
 }
 
 function updateScoreboardRevealed() {
-  // Card A
   const aIsClaude = slotA.model === 'claude';
   const aColor = aIsClaude ? 'var(--claude-orange)' : 'var(--gpt-black)';
-  document.getElementById('scoreCardA').style.borderTopColor = aColor;
+  const bColor = !aIsClaude ? 'var(--claude-orange)' : 'var(--gpt-black)';
+
+  const cardA = document.getElementById('scoreCardA');
+  const cardB = document.getElementById('scoreCardB');
+  cardA.style.borderTopColor = aColor;
+  cardB.style.borderTopColor = bColor;
+
   document.getElementById('scoreNameA').textContent = aIsClaude ? 'Claude' : 'ChatGPT';
   document.getElementById('scoreNameA').style.color = 'var(--text-strong)';
   document.getElementById('scoreNameA').style.fontWeight = '700';
   document.getElementById('scoreOrgA').textContent = aIsClaude ? 'Anthropic' : 'OpenAI';
-  document.getElementById('scoreNumA').textContent = aIsClaude ? '6' : '3';
+  document.getElementById('scoreNumA').textContent = aIsClaude ? POINTS.claude : POINTS.gpt;
   document.getElementById('scoreNumA').style.color = aColor;
   document.getElementById('scoreLabelA').textContent = 'Points';
 
-  // Card B
-  const bIsClaude = slotB.model === 'claude';
-  const bColor = bIsClaude ? 'var(--claude-orange)' : 'var(--gpt-black)';
-  document.getElementById('scoreCardB').style.borderTopColor = bColor;
-  document.getElementById('scoreNameB').textContent = bIsClaude ? 'Claude' : 'ChatGPT';
+  document.getElementById('scoreNameB').textContent = !aIsClaude ? 'Claude' : 'ChatGPT';
   document.getElementById('scoreNameB').style.color = 'var(--text-strong)';
   document.getElementById('scoreNameB').style.fontWeight = '700';
-  document.getElementById('scoreOrgB').textContent = bIsClaude ? 'Anthropic' : 'OpenAI';
-  document.getElementById('scoreNumB').textContent = bIsClaude ? '6' : '3';
+  document.getElementById('scoreOrgB').textContent = !aIsClaude ? 'Anthropic' : 'OpenAI';
+  document.getElementById('scoreNumB').textContent = !aIsClaude ? POINTS.claude : POINTS.gpt;
   document.getElementById('scoreNumB').style.color = bColor;
   document.getElementById('scoreLabelB').textContent = 'Points';
 
-  // Scoreboard note
-  document.getElementById('scoreboardNote').textContent = 'Points across all closed questions. Identities shown.';
-
-  // Topic scores
-  document.getElementById('topicScores0').innerHTML =
-    '<span style="color:var(--claude-orange)">6</span><span style="color:var(--text-faint)">/</span><span style="color:var(--gpt-black)">3</span>';
+  document.getElementById('scoreboardNote').textContent = 'Points across all closed questions.';
 }
 
-/* ── DEEP DIVE TOGGLE ── */
+/* ══════════════════════════════════════════════
+   DEEP DIVE
+   ══════════════════════════════════════════════ */
+
 function toggleDeep(side) {
   const panel = document.getElementById('deep' + side);
   const btn = document.getElementById('deeper' + side);
@@ -825,35 +1282,141 @@ function toggleDeep(side) {
   btn.querySelector('.deeper-label').textContent = isOpen ? 'Deeper Dive' : 'Show less';
 }
 
-/* ── ROUNDS ── */
+/* ══════════════════════════════════════════════
+   ROUNDS ARCHIVE
+   ══════════════════════════════════════════════ */
+
 function renderRounds() {
+  const closedIds = CLOSED_RESULTS.map(r => r.id);
+  const currentId = currentQ.id;
   const grid = document.getElementById('roundsGrid');
-  grid.innerHTML = ROUNDS_DATA.map(r => {
-    const isUpcoming = r.status === 'upcoming';
-    const isLive = r.status === 'live';
-    const statusHtml = isLive
-      ? '<span class="clash-round-status" style="color:var(--live-500);border:1px solid var(--live-500);background:var(--live-100)">● Live</span>'
-      : isUpcoming
-        ? '<span class="clash-round-status" style="color:var(--text-faint);border:1px solid var(--border)">Coming soon</span>'
-        : '<span class="clash-round-status" style="color:var(--text-faint);border:1px solid var(--border)">Closed</span>';
-    const resultHtml = isLive
-      ? '<span>Voting open</span>'
-      : isUpcoming
-        ? '<span>Opens when the previous question closes</span>'
-        : '<span>Results available</span>';
-    const clickable = !isUpcoming;
-    return `<div class="clash-round${clickable ? ' clash-round-int' : ''}" style="opacity:${isUpcoming?0.4:1};cursor:${clickable?'pointer':'default'}"${isLive ? ' onclick="nav(event,\'vote\')"' : ''}>
+
+  grid.innerHTML = QUESTIONS.map(q => {
+    const isCurrent = q.id === currentId;
+    const isClosed = closedIds.includes(q.id);
+    const isUpcoming = !isCurrent && !isClosed;
+    const result = CLOSED_RESULTS.find(r => r.id === q.id);
+
+    const statusHtml = isCurrent
+      ? `<span class="clash-round-status" style="color:var(--live-500);border:1px solid var(--live-500);background:var(--live-100)">● Live</span>`
+      : isClosed
+        ? `<span class="clash-round-status" style="color:var(--text-faint);border:1px solid var(--border)">Closed</span>`
+        : `<span class="clash-round-status" style="color:var(--text-faint);border:1px solid var(--border)">Coming soon</span>`;
+
+    let resultHtml = '';
+    if (isCurrent) resultHtml = '<span>Voting open</span>';
+    else if (isUpcoming) resultHtml = '<span>Opens when the previous question closes</span>';
+    else if (result) {
+      const winner = result.claudeWon ? 'Claude' : result.claudeWon === false ? 'ChatGPT' : 'Tie';
+      const color = result.claudeWon ? 'var(--claude-orange)' : result.claudeWon === false ? 'var(--gpt-black)' : 'var(--text-muted)';
+      resultHtml = `<span style="color:${color};font-weight:700">Winner: ${winner} · ${result.claudePct}% / ${result.gptPct}%</span>`;
+    } else {
+      resultHtml = '<span>Results available</span>';
+    }
+
+    const clickable = isCurrent || isClosed;
+    return `<div class="clash-round${clickable ? ' clash-round-int' : ''}"
+      style="opacity:${isUpcoming?0.4:1};cursor:${clickable?'pointer':'default'}"
+      ${isCurrent ? 'onclick="nav(event,\'vote\')"' : ''}
+      ${isClosed ? `onclick="showClosedResult('${q.id}')"` : ''}>
       <div class="clash-round-meta">
-        <span class="clash-round-id">${r.round} · Q${r.number}</span>
+        <span class="clash-round-id">${q.round} · Q${q.questionNum}</span>
         ${statusHtml}
       </div>
-      <div class="clash-round-q${isUpcoming ? ' clash-blur' : ''}">${r.question}</div>
+      <div class="clash-round-q${isUpcoming?' clash-blur':''}">${q.question}</div>
       <div class="clash-round-result">${resultHtml}</div>
     </div>`;
   }).join('');
 }
 
-/* ── THEME ── */
+function showClosedResult(qId) {
+  // Scroll to vote section and show the closed result for that question
+  nav(null, 'vote');
+  const q = QUESTIONS.find(x => x.id === qId);
+  const result = CLOSED_RESULTS.find(r => r.id === qId);
+  if (!q || !result) return;
+
+  // Update question display
+  document.getElementById('qRoundBadge').textContent = q.round;
+  document.getElementById('qTopicBadge').innerHTML = q.topicDisplay;
+  document.getElementById('questionText').textContent = q.question;
+
+  // Hide voting, show result
+  document.getElementById('voteArea').style.display = 'none';
+  document.getElementById('preVoteNote').style.display = 'none';
+  document.getElementById('tallyBlock').style.display = 'none';
+  document.getElementById('countdownWrap').style.display = 'none';
+  document.getElementById('votingClosedBadge').style.display = 'inline-flex';
+
+  // Build closed result reveal
+  const slotAClosed = { model: 'claude', summary: q.claude.summary, p1: q.claude.p1, p2: q.claude.p2, p3: q.claude.p3, percent: result.claudePct };
+  const slotBClosed = { model: 'gpt', summary: q.gpt.summary, p1: q.gpt.p1, p2: q.gpt.p2, p3: q.gpt.p3, percent: result.gptPct };
+
+  document.getElementById('summaryA').textContent = slotAClosed.summary;
+  document.getElementById('summaryB').textContent = slotBClosed.summary;
+  ['A','B'].forEach(side => {
+    const slot = side === 'A' ? slotAClosed : slotBClosed;
+    document.getElementById('deep' + side).innerHTML = [slot.p1, slot.p2, slot.p3].map(p => `<p>${p}</p>`).join('');
+  });
+  updateResponseHeader('A', 'claude');
+  updateResponseHeader('B', 'gpt');
+
+  document.getElementById('revealBlock').style.display = 'block';
+  document.getElementById('revealA').innerHTML = buildRevealCard('A', slotAClosed);
+  document.getElementById('revealB').innerHTML = buildRevealCard('B', slotBClosed);
+  document.getElementById('revealNote').textContent = 'This question is now closed. Results are final.';
+}
+
+/* ══════════════════════════════════════════════
+   TOPICS + SCOREBOARD
+   ══════════════════════════════════════════════ */
+
+const TOPICS_ORDER = ['Science & Technology','Philosophy','History','Culture & Society','Economics'];
+const ROUNDS_FOR_TOPIC = { 'Science & Technology':'Round 1','Philosophy':'Round 2','History':'Round 3','Culture & Society':'Round 4','Economics':'Round 5' };
+
+function renderTopics() {
+  const closedIds = CLOSED_RESULTS.map(r => r.id);
+  const currentTopic = currentQ.topic;
+  const grid = document.getElementById('topicsGrid');
+
+  grid.innerHTML = TOPICS_ORDER.map(topic => {
+    const isActive = topic === currentTopic || QUESTIONS.filter(q => q.topic === topic).some(q => closedIds.includes(q.id));
+    const pts = TOPIC_POINTS[topic];
+    const hasPoints = pts.claude > 0 || pts.gpt > 0;
+    const scoreHtml = hasPoints
+      ? `<span style="color:var(--claude-orange)">${pts.claude}</span><span style="color:var(--text-faint)">/</span><span style="color:var(--gpt-black)">${pts.gpt}</span>`
+      : `<span style="color:var(--text-faint)">—</span>`;
+
+    return `<div class="clash-topic" style="opacity:${isActive?1:0.4}">
+      <div class="clash-topic-name">${topic.replace('&','&amp;')}</div>
+      <div class="clash-topic-scores">${scoreHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderScoreboard() {
+  const hasPoints = POINTS.claude > 0 || POINTS.gpt > 0;
+  if (!hasPoints) return;
+  document.getElementById('scoreNumA').textContent = POINTS.claude;
+  document.getElementById('scoreNumB').textContent = POINTS.gpt;
+  document.getElementById('scoreNameA').textContent = 'Claude';
+  document.getElementById('scoreNameB').textContent = 'ChatGPT';
+  document.getElementById('scoreOrgA').textContent = 'Anthropic';
+  document.getElementById('scoreOrgB').textContent = 'OpenAI';
+  document.getElementById('scoreCardA').style.borderTopColor = 'var(--claude-orange)';
+  document.getElementById('scoreCardB').style.borderTopColor = 'var(--gpt-black)';
+  document.getElementById('scoreLabelA').textContent = 'Points';
+  document.getElementById('scoreLabelB').textContent = 'Points';
+  document.getElementById('scoreNameA').style.color = 'var(--text-strong)';
+  document.getElementById('scoreNameB').style.color = 'var(--text-strong)';
+  document.getElementById('scoreNameA').style.fontWeight = '700';
+  document.getElementById('scoreNameB').style.fontWeight = '700';
+}
+
+/* ══════════════════════════════════════════════
+   THEME
+   ══════════════════════════════════════════════ */
+
 function toggleTheme() {
   currentTheme = currentTheme === 'light' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', currentTheme);
@@ -864,17 +1427,17 @@ function toggleTheme() {
   document.getElementById('themeLabelM').textContent = isDark ? 'Light' : 'Dark';
 }
 
-/* ── NAV ── */
-function scrollToTop() { window.scrollTo({ top:0, behavior:'smooth' }); }
+/* ══════════════════════════════════════════════
+   NAV + UTILS
+   ══════════════════════════════════════════════ */
 
+function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); }
 function nav(e, id) {
   if (e) e.preventDefault();
   const el = document.getElementById(id);
   if (!el) return;
-  const top = el.getBoundingClientRect().top + window.scrollY - 56;
-  window.scrollTo({ top: Math.max(0, top), behavior:'smooth' });
+  window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 56), behavior:'smooth'});
 }
-
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   const btn = document.getElementById('burgerBtn');
@@ -882,22 +1445,11 @@ function toggleMenu() {
   menu.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? '☰' : '✕';
 }
-
-function navMobile(e, id) {
-  toggleMenu();
-  nav(e, id);
-}
-
-/* ── SHARE ── */
+function navMobile(e, id) { toggleMenu(); nav(e, id); }
 function shareResult() {
-  const text = 'I just voted on AI Clash — Claude vs ChatGPT. You decide who answers better. aiclash.com';
-  if (navigator.share) {
-    navigator.share({ title:'AI Clash', text, url: window.location.href }).catch(() => {});
-  } else {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      alert('Link copied to clipboard!');
-    }).catch(() => {});
-  }
+  const text = 'I just voted on AI Clash — Claude vs ChatGPT. You decide who answers better. aiclash.net';
+  if (navigator.share) navigator.share({title:'AI Clash',text,url:window.location.href}).catch(()=>{});
+  else navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{});
 }
 </script>
 </body>
