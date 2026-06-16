@@ -129,12 +129,12 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-countdown-time.urgent{color:var(--live-500)}
 
 /* RESPONSE CARD */
-.clash-response-card{background:var(--bg);border:1px solid var(--border);padding:32px}
+.clash-response-card{background:var(--bg);border:1px solid var(--border);padding:32px;display:flex;flex-direction:column}
 .clash-response-header{display:flex;align-items:baseline;gap:14px;padding-bottom:16px;margin-bottom:20px;border-bottom:2px solid var(--duel-a);transition:border-color var(--dur-slow)}
 .clash-response-glyph{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1}
 .clash-response-name{font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);font-weight:400}
-.clash-response-summary{margin:0;font-family:var(--font-ui);font-size:15px;line-height:1.75;color:var(--text)}
-.clash-deeper{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:var(--radius-0);padding:8px 14px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base);white-space:nowrap}
+.clash-response-summary{margin:0;font-family:var(--font-ui);font-size:15px;line-height:1.75;color:var(--text);flex:1}
+.clash-deeper{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:var(--radius-0);padding:8px 14px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base);white-space:nowrap;align-self:flex-start}
 .clash-deeper .chevron{display:inline-block;transition:transform var(--dur-base)}
 .clash-deeper.open .chevron{transform:rotate(180deg)}
 .clash-deep-content{margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
@@ -173,6 +173,17 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-topic{background:var(--surface);padding:20px 14px;text-align:center}
 .clash-topic-name{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
 .clash-topic-scores{display:flex;justify-content:center;gap:8px;font-family:var(--font-mono);font-size:18px;font-weight:700}
+.clash-topic-scorecard{display:flex;flex-direction:column;gap:2px}
+.clash-topic-scorecard-pending{padding:20px 24px;background:var(--surface);border:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-faint)}
+.clash-topic-result{background:var(--surface);border:1px solid var(--border);overflow:hidden}
+.clash-topic-result-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+.clash-topic-result-name{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:var(--ls-tight);text-transform:uppercase;color:var(--text-strong)}
+.clash-topic-result-pts{display:flex;align-items:center;gap:16px;font-family:var(--font-mono);font-size:13px;font-weight:700}
+.clash-topic-result-questions{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:2px}
+.clash-topic-q-card{background:var(--bg);padding:16px;text-align:center}
+.clash-topic-q-num{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px}
+.clash-topic-q-winner{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px}
+.clash-topic-q-pct{font-family:var(--font-mono);font-size:11px;color:var(--text-muted)}
 
 /* ROUNDS */
 .clash-rounds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--duel-seam)}
@@ -221,12 +232,13 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
   .clash-burger{display:block}
   .clash-responses,.clash-reveal-grid,.clash-about{grid-template-columns:1fr}
   .clash-responses{border:none;gap:14px}
-  .clash-topics{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:520px){
   .clash-scoreboard{grid-template-columns:1fr}
   .clash-vote-area{grid-template-columns:1fr}
   .clash-footer{flex-direction:column;gap:14px;text-align:center}
+  .clash-topic-result-header{flex-direction:column;align-items:flex-start;gap:12px}
+  .clash-topic-result-questions{grid-template-columns:repeat(3,1fr)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -370,9 +382,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
   <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--text-faint);letter-spacing:0.04em" id="scoreboardNote">
     Live vote share for the open question. Model names hidden until close.
   </div>
-  <div style="height:40px"></div>
-  <div class="clash-label">By topic</div>
-  <div class="clash-topics" id="topicsGrid"></div>
+
 </section>
 </div>
 
@@ -965,14 +975,20 @@ const QUESTIONS = [
 
 // Closed questions with results (populate as each closes)
 // Format: { id: 'S1', claudePct: 58, gptPct: 42, claudeWon: true }
+// DEMO DATA — remove before launch and replace with real results
 const CLOSED_RESULTS = [
-  // { id: 'S1', claudePct: 58, gptPct: 42, claudeWon: true },
+  { id: 'S1', claudePct: 69, gptPct: 31, claudeWon: true },
+  { id: 'S2', claudePct: 44, gptPct: 56, claudeWon: false },
+  { id: 'S3', claudePct: 61, gptPct: 39, claudeWon: true },
+  { id: 'S4', claudePct: 52, gptPct: 48, claudeWon: true },
+  { id: 'S5', claudePct: 38, gptPct: 62, claudeWon: false },
 ];
 
 // Accumulated points (update manually after each question closes)
-const POINTS = { claude: 0, gpt: 0 };
+// DEMO DATA — remove before launch
+const POINTS = { claude: 9, gpt: 6 };
 const TOPIC_POINTS = {
-  'Science & Technology': { claude: 0, gpt: 0 },
+  'Science & Technology': { claude: 9, gpt: 6 },
   'Philosophy':           { claude: 0, gpt: 0 },
   'History':              { claude: 0, gpt: 0 },
   'Culture & Society':    { claude: 0, gpt: 0 },
@@ -1001,7 +1017,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = e.target.closest('[data-round-action]');
     if (card) handleRoundClick(card);
   });
-  renderTopics();
   renderScoreboard();
   startCountdown();
   restoreVote();
@@ -1312,21 +1327,29 @@ function renderRounds() {
     const hasCurrent = isCurrentTopic;
     const isOpen = isCurrentTopic; // current topic open by default
 
-    // Summary line
+    // Summary line with inline results for closed topics
+    const pts = TOPIC_POINTS[topic];
     let subLabel = '';
+    let subColor = 'var(--text-faint)';
+
     if (allClosed) {
-      subLabel = '5 questions · Round closed';
+      const claudeWinsRound = pts.claude > pts.gpt;
+      const gptWinsRound = pts.gpt > pts.claude;
+      const tieRound = pts.claude === pts.gpt;
+      const winnerLabel = claudeWinsRound ? 'Claude wins' : gptWinsRound ? 'ChatGPT wins' : 'Tie';
+      const winnerColor = claudeWinsRound ? 'var(--claude-orange)' : gptWinsRound ? 'var(--gpt-graphite)' : 'var(--text-muted)';
+      subLabel = `5 questions · Round closed · <span style="color:var(--claude-orange);font-weight:700">Claude ${pts.claude}pts</span> · <span style="color:var(--gpt-graphite);font-weight:700">ChatGPT ${pts.gpt}pts</span> · <span style="color:${winnerColor};font-weight:700">${winnerLabel}</span>`;
+      subColor = 'var(--text-faint)';
     } else if (hasCurrent) {
       const closedCount = topicQs.filter(q => closedIds.includes(q.id)).length;
       subLabel = closedCount > 0
         ? `${closedCount} of 5 closed · In progress`
         : '5 questions · In progress';
+      subColor = 'var(--live-500)';
     } else {
       subLabel = '5 questions · Coming soon';
+      subColor = 'var(--text-faint)';
     }
-
-    // Status color for sub label
-    const subColor = allClosed ? 'var(--text-faint)' : hasCurrent ? 'var(--live-500)' : 'var(--text-faint)';
 
     // Question cards
     const cards = topicQs.map(q => {
@@ -1379,6 +1402,7 @@ function renderRounds() {
       </div>
       <div class="clash-topic-body${isOpen?' open':''}" id="${groupId}">
         <div class="clash-topic-grid">${cards}</div>
+        ${allClosed ? buildTopicQGrid(topic) : ''}
       </div>
     </div>`;
   }).join('');
@@ -1389,6 +1413,22 @@ function handleRoundClick(el) {
   const qid = el.getAttribute('data-round-qid');
   if (action === 'vote') nav(null, 'vote');
   else if (action === 'result') showClosedResult(qid);
+}
+
+function buildTopicQGrid(topic) {
+  const topicQs = QUESTIONS.filter(q => q.topic === topic);
+  const qCards = topicQs.map((q, i) => {
+    const result = CLOSED_RESULTS.find(r => r.id === q.id);
+    if (!result) return '';
+    const winner = result.claudeWon === true ? 'Claude' : result.claudeWon === false ? 'ChatGPT' : 'Tie';
+    const wColor = result.claudeWon === true ? 'var(--claude-orange)' : result.claudeWon === false ? 'var(--gpt-graphite)' : 'var(--text-muted)';
+    return `<div class="clash-topic-q-card">
+      <div class="clash-topic-q-num">Q${i+1}</div>
+      <div class="clash-topic-q-winner" style="color:${wColor}">${winner}</div>
+      <div class="clash-topic-q-pct">${result.claudePct}% · ${result.gptPct}%</div>
+    </div>`;
+  }).join('');
+  return `<div class="clash-topic-result-questions" style="border-top:1px solid var(--border);padding:2px">${qCards}</div>`;
 }
 
 function toggleTopicGroup(groupId) {
@@ -1445,23 +1485,61 @@ const TOPICS_ORDER = ['Science & Technology','Philosophy','History','Culture & S
 const ROUNDS_FOR_TOPIC = { 'Science & Technology':'Round 1','Philosophy':'Round 2','History':'Round 3','Culture & Society':'Round 4','Economics':'Round 5' };
 
 function renderTopics() {
+  const scorecard = document.getElementById('topicScorecard');
   const closedIds = CLOSED_RESULTS.map(r => r.id);
-  const currentTopic = currentQ.topic;
-  const grid = document.getElementById('topicsGrid');
 
-  grid.innerHTML = TOPICS_ORDER.map(topic => {
-    const isActive = topic === currentTopic || QUESTIONS.filter(q => q.topic === topic).some(q => closedIds.includes(q.id));
-    const pts = TOPIC_POINTS[topic];
-    const hasPoints = pts.claude > 0 || pts.gpt > 0;
-    const scoreHtml = hasPoints
-      ? `<span style="color:var(--claude-orange)">${pts.claude}</span><span style="color:var(--text-faint)">/</span><span style="color:var(--gpt-black)">${pts.gpt}</span>`
-      : `<span style="color:var(--text-faint)">—</span>`;
+  // Group closed results by topic
+  const closedByTopic = {};
+  CLOSED_RESULTS.forEach(r => {
+    const q = QUESTIONS.find(x => x.id === r.id);
+    if (!q) return;
+    if (!closedByTopic[q.topic]) closedByTopic[q.topic] = [];
+    closedByTopic[q.topic].push({ q, r });
+  });
 
-    return `<div class="clash-topic" style="opacity:${isActive?1:0.4}">
-      <div class="clash-topic-name">${topic.replace('&','&amp;')}</div>
-      <div class="clash-topic-scores">${scoreHtml}</div>
-    </div>`;
-  }).join('');
+  const completedTopics = TOPICS_ORDER.filter(topic => {
+    const topicQs = QUESTIONS.filter(q => q.topic === topic);
+    return topicQs.every(q => closedIds.includes(q.id));
+  });
+
+  if (completedTopics.length === 0) {
+    scorecard.innerHTML = `<div class="clash-topic-scorecard-pending">Topic results appear here once a full round closes.</div>`;
+    return;
+  }
+
+  scorecard.innerHTML = '<div class="clash-topic-scorecard">' +
+    completedTopics.map(topic => {
+      const topicQs = QUESTIONS.filter(q => q.topic === topic);
+      const pts = TOPIC_POINTS[topic];
+      const winnerColor = pts.claude > pts.gpt ? 'var(--claude-orange)' : pts.gpt > pts.claude ? 'var(--gpt-graphite)' : 'var(--text-muted)';
+      const winnerName = pts.claude > pts.gpt ? 'Claude' : pts.gpt > pts.claude ? 'ChatGPT' : 'Tie';
+
+      const qCards = topicQs.map((q, i) => {
+        const result = CLOSED_RESULTS.find(r => r.id === q.id);
+        if (!result) return '';
+        const winner = result.claudeWon === true ? 'Claude' : result.claudeWon === false ? 'ChatGPT' : 'Tie';
+        const wColor = result.claudeWon === true ? 'var(--claude-orange)' : result.claudeWon === false ? 'var(--gpt-graphite)' : 'var(--text-muted)';
+        return `<div class="clash-topic-q-card">
+          <div class="clash-topic-q-num">Q${i+1}</div>
+          <div class="clash-topic-q-winner" style="color:${wColor}">${winner}</div>
+          <div class="clash-topic-q-pct">${result.claudePct}% / ${result.gptPct}%</div>
+        </div>`;
+      }).join('');
+
+      return `<div class="clash-topic-result">
+        <div class="clash-topic-result-header">
+          <span class="clash-topic-result-name">${topic}</span>
+          <div class="clash-topic-result-pts">
+            <span style="color:var(--claude-orange)">Claude ${pts.claude}pts</span>
+            <span style="color:var(--text-faint)">·</span>
+            <span style="color:var(--gpt-black)">ChatGPT ${pts.gpt}pts</span>
+            <span style="background:${winnerColor};color:#fff;font-size:10px;padding:3px 10px;border-radius:var(--radius-pill);letter-spacing:0.1em;text-transform:uppercase">${winnerName} wins</span>
+          </div>
+        </div>
+        <div class="clash-topic-result-questions">${qCards}</div>
+      </div>`;
+    }).join('') +
+  '</div>';
 }
 
 function renderScoreboard() {
