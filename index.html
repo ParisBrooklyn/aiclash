@@ -1336,7 +1336,7 @@ function renderRounds() {
       const claudeWinsRound = pts.claude > pts.gpt;
       const gptWinsRound = pts.gpt > pts.claude;
       const tieRound = pts.claude === pts.gpt;
-      const winnerLabel = claudeWinsRound ? 'Claude wins' : gptWinsRound ? 'ChatGPT wins' : 'Tie';
+      const winnerLabel = claudeWinsRound ? '<strong>CLAUDE WINS</strong>' : gptWinsRound ? '<strong>CHATGPT WINS</strong>' : '<strong>TIE</strong>';
       const winnerColor = claudeWinsRound ? 'var(--claude-orange)' : gptWinsRound ? 'var(--gpt-graphite)' : 'var(--text-muted)';
       subLabel = `5 questions · Round closed · <span style="color:var(--claude-orange);font-weight:700">Claude ${pts.claude}pts</span> · <span style="color:var(--gpt-graphite);font-weight:700">ChatGPT ${pts.gpt}pts</span> · <span style="color:${winnerColor};font-weight:700">${winnerLabel}</span>`;
       subColor = 'var(--text-faint)';
