@@ -133,6 +133,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-response-header{display:flex;align-items:baseline;gap:14px;padding-bottom:16px;margin-bottom:20px;border-bottom:2px solid var(--duel-a);transition:border-color var(--dur-slow)}
 .clash-response-glyph{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1}
 .clash-response-name{font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);font-weight:400}
+.clash-card-inner{display:flex;flex-direction:column;flex:1}
 .clash-response-summary{margin:0;font-family:var(--font-ui);font-size:15px;line-height:1.75;color:var(--text);flex:1}
 .clash-deeper{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:var(--radius-0);padding:8px 14px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base);white-space:nowrap;align-self:flex-start}
 .clash-deeper .chevron{display:inline-block;transition:transform var(--dur-base)}
@@ -298,10 +299,12 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
           <span class="clash-response-glyph" id="glyphA" style="color:var(--duel-a)">A</span>
           <span class="clash-response-name" id="nameA">Response A</span>
         </div>
-        <p class="clash-response-summary" id="summaryA"></p>
-        <button class="clash-deeper" id="deeperA" onclick="toggleDeep('A')">
-          <span class="chevron">▼</span>&nbsp;<span class="deeper-label">Deeper Dive</span>
-        </button>
+        <div class="clash-card-inner">
+          <p class="clash-response-summary" id="summaryA"></p>
+          <button class="clash-deeper" id="deeperA" onclick="toggleDeep('A')">
+            <span class="chevron">▼</span>&nbsp;<span class="deeper-label">Deeper Dive</span>
+          </button>
+        </div>
         <div class="clash-deep-content clash-deepen" id="deepA" style="display:none"></div>
       </div>
       <div class="clash-response-card">
@@ -309,10 +312,12 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
           <span class="clash-response-glyph" id="glyphB" style="color:var(--duel-b)">B</span>
           <span class="clash-response-name" id="nameB">Response B</span>
         </div>
-        <p class="clash-response-summary" id="summaryB"></p>
-        <button class="clash-deeper" id="deeperB" onclick="toggleDeep('B')">
-          <span class="chevron">▼</span>&nbsp;<span class="deeper-label">Deeper Dive</span>
-        </button>
+        <div class="clash-card-inner">
+          <p class="clash-response-summary" id="summaryB"></p>
+          <button class="clash-deeper" id="deeperB" onclick="toggleDeep('B')">
+            <span class="chevron">▼</span>&nbsp;<span class="deeper-label">Deeper Dive</span>
+          </button>
+        </div>
         <div class="clash-deep-content clash-deepen" id="deepB" style="display:none"></div>
       </div>
     </div>
@@ -1336,9 +1341,9 @@ function renderRounds() {
       const claudeWinsRound = pts.claude > pts.gpt;
       const gptWinsRound = pts.gpt > pts.claude;
       const tieRound = pts.claude === pts.gpt;
-      const winnerLabel = claudeWinsRound ? '<strong>CLAUDE WINS</strong>' : gptWinsRound ? '<strong>CHATGPT WINS</strong>' : '<strong>TIE</strong>';
+      const winnerLabel = claudeWinsRound ? 'CLAUDE WINS' : gptWinsRound ? 'CHATGPT WINS' : 'TIE';
       const winnerColor = claudeWinsRound ? 'var(--claude-orange)' : gptWinsRound ? 'var(--gpt-graphite)' : 'var(--text-muted)';
-      subLabel = `5 questions · Round closed · <span style="color:var(--claude-orange);font-weight:700">Claude ${pts.claude}pts</span> · <span style="color:var(--gpt-graphite);font-weight:700">ChatGPT ${pts.gpt}pts</span> · <span style="color:${winnerColor};font-weight:700">${winnerLabel}</span>`;
+      subLabel = `5 questions · Round closed · <span style="color:var(--claude-orange);font-weight:700">Claude ${pts.claude}pts</span> · <span style="color:var(--gpt-graphite);font-weight:700">ChatGPT ${pts.gpt}pts</span> · <span style="color:${winnerColor};font-weight:900;letter-spacing:0.2em">${winnerLabel}</span>`;
       subColor = 'var(--text-faint)';
     } else if (hasCurrent) {
       const closedCount = topicQs.filter(q => closedIds.includes(q.id)).length;
