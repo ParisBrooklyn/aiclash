@@ -82,7 +82,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-nav-links{display:flex;align-items:center;gap:28px}
 .clash-nav-links a{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color var(--dur-base)}
 .clash-nav-links a:hover{color:var(--text-strong)}
-.clash-theme-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:transparent;border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:7px 13px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base)}
+.clash-theme-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:transparent;border:1px solid var(--border-const DEADLINE = new Date('2026-06-26T13:00:00Z'););border-radius:var(--radius-pill);padding:7px 13px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base)}
 .clash-theme-btn:hover{color:var(--text-strong);border-color:var(--accent)}
 .clash-burger{display:none;background:none;border:none;color:var(--text-strong);font-size:22px;cursor:pointer;padding:4px}
 .clash-mobile-menu{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);flex-direction:column;padding:12px var(--page-gutter);gap:4px;z-index:99}
@@ -978,22 +978,14 @@ const QUESTIONS = [
    RUNTIME STATE
    ══════════════════════════════════════════════ */
 
-// Closed questions with results (populate as each closes)
+// Closed questions with results — populate as each question closes
 // Format: { id: 'S1', claudePct: 58, gptPct: 42, claudeWon: true }
-// DEMO DATA — remove before launch and replace with real results
-const CLOSED_RESULTS = [
-  { id: 'S1', claudePct: 69, gptPct: 31, claudeWon: true },
-  { id: 'S2', claudePct: 44, gptPct: 56, claudeWon: false },
-  { id: 'S3', claudePct: 61, gptPct: 39, claudeWon: true },
-  { id: 'S4', claudePct: 52, gptPct: 48, claudeWon: true },
-  { id: 'S5', claudePct: 38, gptPct: 62, claudeWon: false },
-];
+const CLOSED_RESULTS = [];
 
-// Accumulated points (update manually after each question closes)
-// DEMO DATA — remove before launch
-const POINTS = { claude: 9, gpt: 6 };
+// Accumulated points — update manually after each question closes
+const POINTS = { claude: 0, gpt: 0 };
 const TOPIC_POINTS = {
-  'Science & Technology': { claude: 9, gpt: 6 },
+  'Science & Technology': { claude: 0, gpt: 0 },
   'Philosophy':           { claude: 0, gpt: 0 },
   'History':              { claude: 0, gpt: 0 },
   'Culture & Society':    { claude: 0, gpt: 0 },
