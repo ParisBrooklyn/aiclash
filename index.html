@@ -371,21 +371,21 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 <section class="clash-section" id="scores">
   <div class="clash-label">Overall standings</div>
   <div class="clash-scoreboard">
-    <div class="clash-score-card" id="scoreCardA" style="border-top:3px solid var(--duel-border)">
-      <div class="clash-score-name" id="scoreNameA" style="color:var(--text-muted);font-weight:400">Response A</div>
-      <div class="clash-score-org" id="scoreOrgA">Live tally</div>
-      <div class="clash-score-num" id="scoreNumA" style="color:var(--text-strong)">—</div>
-      <div class="clash-score-label" id="scoreLabelA"></div>
+    <div class="clash-score-card" id="scoreCardA" style="border-top:3px solid var(--claude-orange)">
+      <div class="clash-score-name" id="scoreNameA" style="color:var(--claude-orange);font-weight:700">Claude</div>
+      <div class="clash-score-org" id="scoreOrgA">Anthropic</div>
+      <div class="clash-score-num" id="scoreNumA" style="color:var(--claude-orange)">0</div>
+      <div class="clash-score-label" id="scoreLabelA">Points</div>
     </div>
-    <div class="clash-score-card" id="scoreCardB" style="border-top:3px solid var(--duel-border)">
-      <div class="clash-score-name" id="scoreNameB" style="color:var(--text-muted);font-weight:400">Response B</div>
-      <div class="clash-score-org" id="scoreOrgB">Live tally</div>
-      <div class="clash-score-num" id="scoreNumB" style="color:var(--text-strong)">—</div>
-      <div class="clash-score-label" id="scoreLabelB"></div>
+    <div class="clash-score-card" id="scoreCardB" style="border-top:3px solid var(--gpt-graphite)">
+      <div class="clash-score-name" id="scoreNameB" style="color:var(--gpt-graphite);font-weight:700">ChatGPT</div>
+      <div class="clash-score-org" id="scoreOrgB">OpenAI</div>
+      <div class="clash-score-num" id="scoreNumB" style="color:var(--gpt-graphite)">0</div>
+      <div class="clash-score-label" id="scoreLabelB">Points</div>
     </div>
   </div>
   <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--text-faint);letter-spacing:0.04em" id="scoreboardNote">
-    Live vote share for the open question. Model names hidden until close.
+    Accumulated points from closed questions. Current question tally shown after you vote.
   </div>
 
 </section>
@@ -1181,12 +1181,8 @@ function updateTallyDisplay(data) {
     fillB.querySelector('span').textContent = noVotes ? '— · B' : bPct + '% · B';
   }
 
-  const numA = document.getElementById('scoreNumA');
-  const numB = document.getElementById('scoreNumB');
-  if (numA && numB && phase !== 'revealed') {
-    numA.textContent = noVotes ? '—' : aPct + '%';
-    numB.textContent = noVotes ? '—' : bPct + '%';
-  }
+  // Scoreboard shows accumulated points only — not updated by live tally
+  // Live tally only updates the tally bar in the vote section
 
 
 
@@ -1542,19 +1538,35 @@ function renderTopics() {
 }
 
 function renderScoreboard() {
-  // Scoreboard stays blind during voting — only reveals after countdown expires
-  // Points shown as overall totals from closed questions only, no live question included
   const hasPoints = POINTS.claude > 0 || POINTS.gpt > 0;
-  if (!hasPoints) return;
-  // Show points but keep names blind until reveal
-  document.getElementById('scoreNumA').textContent = '—';
-  document.getElementById('scoreNumB').textContent = '—';
-  document.getElementById('scoreNameA').textContent = 'Response A';
-  document.getElementById('scoreNameB').textContent = 'Response B';
-  document.getElementById('scoreOrgA').textContent = 'Blind tally';
-  document.getElementById('scoreOrgB').textContent = 'Blind tally';
-  document.getElementById('scoreLabelA').textContent = '';
-  document.getElementById('scoreLabelB').textContent = '';
+
+  // Card A = Claude always (scoreboard is not blind — it shows accumulated points)
+  document.getElementById('scoreCardA').style.borderTopColor = 'var(--claude-orange)';
+  document.getElementById('scoreNameA').textContent = 'Claude';
+  document.getElementById('scoreNameA').style.color = 'var(--claude-orange)';
+  document.getElementById('scoreNameA').style.fontWeight = '700';
+  document.getElementById('scoreOrgA').textContent = 'Anthropic';
+  document.getElementById('scoreNumA').textContent = POINTS.claude;
+  document.getElementById('scoreNumA').style.color = 'var(--claude-orange)';
+  document.getElementById('scoreLabelA').textContent = 'Points';
+
+  // Card B = ChatGPT always
+  document.getElementById('scoreCardB').style.borderTopColor = 'var(--gpt-graphite)';
+  document.getElementById('scoreNameB').textContent = 'ChatGPT';
+  document.getElementById('scoreNameB').style.color = 'var(--gpt-graphite)';
+  document.getElementById('scoreNameB').style.fontWeight = '700';
+  document.getElementById('scoreOrgB').textContent = 'OpenAI';
+  document.getElementById('scoreNumB').textContent = POINTS.gpt;
+  document.getElementById('scoreNumB').style.color = 'var(--gpt-graphite)';
+  document.getElementById('scoreLabelB').textContent = 'Points';
+
+  // Update scoreboard note
+  const note = document.getElementById('scoreboardNote');
+  if (note) {
+    note.textContent = hasPoints
+      ? 'Accumulated points from closed questions. Current question tally shown after you vote.'
+      : 'Points accumulate as questions close. First results after Q1.';
+  }
 }
 
 /* ══════════════════════════════════════════════
