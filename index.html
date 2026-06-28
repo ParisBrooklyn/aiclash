@@ -82,7 +82,7 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-nav-links{display:flex;align-items:center;gap:28px}
 .clash-nav-links a{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color var(--dur-base)}
 .clash-nav-links a:hover{color:var(--text-strong)}
-.clash-theme-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:transparent;border:1px solid var(--border-const DEADLINE = new Date('2026-06-26T13:00:00Z'););border-radius:var(--radius-pill);padding:7px 13px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base)}
+.clash-theme-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-muted);background:transparent;border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:7px 13px;cursor:pointer;transition:color var(--dur-base),border-color var(--dur-base)}
 .clash-theme-btn:hover{color:var(--text-strong);border-color:var(--accent)}
 .clash-burger{display:none;background:none;border:none;color:var(--text-strong);font-size:22px;cursor:pointer;padding:4px}
 .clash-mobile-menu{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);flex-direction:column;padding:12px var(--page-gutter);gap:4px;z-index:99}
@@ -436,7 +436,7 @@ const CURRENT_OVERRIDE = 'S2';
 // ── DEADLINE ─────────────────────────────────
 // Set this to the closing time of the CURRENT question (UTC).
 // Replace before going live: new Date('2026-07-01T18:00:00Z')
-const DEADLINE = new Date('2026-06-29T13:00:00Z');
+const DEADLINE = new Date('2026-06-29T13:00:00Z'); // Sunday June 29 at 9am ET
 
 // ── APPS SCRIPT URL ──────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1NKV7_LINjbxbS50Chpu6Ku9bYIiEKMwE8eWke6QxrkFFZ8uYPRV7qwXqq5EnM0mu/exec';
@@ -1542,22 +1542,19 @@ function renderTopics() {
 }
 
 function renderScoreboard() {
+  // Scoreboard stays blind during voting — only reveals after countdown expires
+  // Points shown as overall totals from closed questions only, no live question included
   const hasPoints = POINTS.claude > 0 || POINTS.gpt > 0;
   if (!hasPoints) return;
-  document.getElementById('scoreNumA').textContent = POINTS.claude;
-  document.getElementById('scoreNumB').textContent = POINTS.gpt;
-  document.getElementById('scoreNameA').textContent = 'Claude';
-  document.getElementById('scoreNameB').textContent = 'ChatGPT';
-  document.getElementById('scoreOrgA').textContent = 'Anthropic';
-  document.getElementById('scoreOrgB').textContent = 'OpenAI';
-  document.getElementById('scoreCardA').style.borderTopColor = 'var(--claude-orange)';
-  document.getElementById('scoreCardB').style.borderTopColor = 'var(--gpt-black)';
-  document.getElementById('scoreLabelA').textContent = 'Points';
-  document.getElementById('scoreLabelB').textContent = 'Points';
-  document.getElementById('scoreNameA').style.color = 'var(--text-strong)';
-  document.getElementById('scoreNameB').style.color = 'var(--text-strong)';
-  document.getElementById('scoreNameA').style.fontWeight = '700';
-  document.getElementById('scoreNameB').style.fontWeight = '700';
+  // Show points but keep names blind until reveal
+  document.getElementById('scoreNumA').textContent = '—';
+  document.getElementById('scoreNumB').textContent = '—';
+  document.getElementById('scoreNameA').textContent = 'Response A';
+  document.getElementById('scoreNameB').textContent = 'Response B';
+  document.getElementById('scoreOrgA').textContent = 'Blind tally';
+  document.getElementById('scoreOrgB').textContent = 'Blind tally';
+  document.getElementById('scoreLabelA').textContent = '';
+  document.getElementById('scoreLabelB').textContent = '';
 }
 
 /* ══════════════════════════════════════════════
