@@ -175,6 +175,35 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 .clash-topic-name{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
 .clash-topic-scores{display:flex;justify-content:center;gap:8px;font-family:var(--font-mono);font-size:18px;font-weight:700}
 .clash-topic-scorecard{display:flex;flex-direction:column;gap:2px}
+.clash-r1-final{background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--accent);margin:2px}
+.clash-r1-final-header{background:var(--ink-0);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.clash-r1-final-brand{font-family:var(--font-display);font-weight:900;font-size:16px;letter-spacing:-0.01em;text-transform:uppercase;color:var(--paper-0)}
+.clash-r1-final-brand .a{color:var(--accent)}
+.clash-r1-final-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#9A958C;border:1px solid #555;padding:3px 8px}
+.clash-r1-final-round{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);padding:12px 20px;border-bottom:1px solid var(--border)}
+.clash-r1-final-scores{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 28px;gap:16px}
+.clash-r1-final-side{text-align:center}
+.clash-r1-final-model{font-family:var(--font-display);font-weight:900;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.clash-r1-final-model.claude{color:var(--claude-orange)}
+.clash-r1-final-model.gpt{color:var(--gpt-graphite)}
+.clash-r1-final-pts{font-family:var(--font-display);font-weight:900;font-size:80px;line-height:1;font-variant-numeric:tabular-nums}
+.clash-r1-final-pts.claude{color:var(--claude-orange)}
+.clash-r1-final-pts.gpt{color:var(--gpt-graphite)}
+.clash-r1-final-label{font-family:var(--font-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);margin-top:4px}
+.clash-r1-final-vs{font-family:var(--font-display);font-weight:900;font-size:16px;color:var(--text-faint);text-align:center}
+.clash-r1-final-qs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border-top:1px solid var(--border)}
+.clash-r1-final-q{padding:12px 8px;text-align:center;background:var(--surface)}
+.clash-r1-final-qlabel{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);margin-bottom:5px}
+.clash-r1-final-qwinner{font-family:var(--font-display);font-weight:800;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.clash-r1-final-qwinner.claude{color:var(--claude-orange)}
+.clash-r1-final-qwinner.gpt{color:var(--gpt-graphite)}
+.clash-r1-final-qwinner.tie{color:var(--text-faint)}
+.clash-r1-final-qpct{font-family:var(--font-mono);font-size:9px;color:var(--text-faint)}
+.clash-r1-final-footer{background:var(--ink-0);padding:10px 20px;text-align:center;font-family:var(--font-mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#444}
+.clash-r1-final-footer span{color:var(--accent)}
+.clash-r1-verdict{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface)}
+.clash-r1-verdict-label{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint)}
+.clash-r1-verdict-result{font-family:var(--font-display);font-weight:900;font-size:28px;letter-spacing:0.02em;text-transform:uppercase}
 .clash-topic-scorecard-pending{padding:20px 24px;background:var(--surface);border:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-faint)}
 .clash-topic-result{background:var(--surface);border:1px solid var(--border);overflow:hidden}
 .clash-topic-result-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
@@ -431,12 +460,12 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 // ── MANUAL OVERRIDE ──────────────────────────
 // Set to a question ID like 'S1', 'S2', 'P1' etc to force that question live.
 // Set to null to auto-detect based on DEADLINE.
-const CURRENT_OVERRIDE = 'S5';
+const CURRENT_OVERRIDE = 'P1';
 
 // ── DEADLINE ─────────────────────────────────
 // Set this to the closing time of the CURRENT question (UTC).
 // Replace before going live: new Date('2026-07-01T18:00:00Z')
-const DEADLINE = new Date('2026-07-09T16:00:00Z'); // Sunday June 29 at 9am ET
+const DEADLINE = new Date('2026-07-13T17:00:00Z'); // Monday July 13 at 1pm ET
 
 // ── APPS SCRIPT URL ──────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1NKV7_LINjbxbS50Chpu6Ku9bYIiEKMwE8eWke6QxrkFFZ8uYPRV7qwXqq5EnM0mu/exec';
@@ -985,12 +1014,13 @@ const CLOSED_RESULTS = [
   { id: 'S2', claudePct: 20, gptPct: 80, claudeWon: false },
   { id: 'S3', claudePct: 80, gptPct: 20, claudeWon: true },
   { id: 'S4', claudePct: 29, gptPct: 71, claudeWon: false },
+  { id: 'S5', claudePct: 50, gptPct: 50, claudeWon: null }, // Tie
 ];
 
 // Accumulated points — update manually after each question closes
-const POINTS = { claude: 6, gpt: 6 };
+const POINTS = { claude: 7, gpt: 7 };
 const TOPIC_POINTS = {
-  'Science & Technology': { claude: 6, gpt: 6 },
+  'Science & Technology': { claude: 7, gpt: 7 },
   'Philosophy':           { claude: 0, gpt: 0 },
   'History':              { claude: 0, gpt: 0 },
   'Culture & Society':    { claude: 0, gpt: 0 },
@@ -1400,7 +1430,7 @@ function renderRounds() {
       </div>
       <div class="clash-topic-body${isOpen?' open':''}" id="${groupId}">
         <div class="clash-topic-grid">${cards}</div>
-        ${allClosed ? buildTopicQGrid(topic) : ''}
+        ${allClosed ? buildRound1Final(topic, pts) : ''}
       </div>
     </div>`;
   }).join('');
@@ -1411,6 +1441,57 @@ function handleRoundClick(el) {
   const qid = el.getAttribute('data-round-qid');
   if (action === 'vote') nav(null, 'vote');
   else if (action === 'result') showClosedResult(qid);
+}
+
+function buildRound1Final(topic, pts) {
+  // Use FROZEN R1 topic points — not the running overall POINTS
+  // This preserves the R1 story even as R2 scores accumulate
+  const r1pts = TOPIC_POINTS[topic];
+  const topicQs = QUESTIONS.filter(q => q.topic === topic);
+  const claudeWins = r1pts.claude > r1pts.gpt;
+  const gptWins = r1pts.gpt > r1pts.claude;
+  const isTie = r1pts.claude === r1pts.gpt;
+  const verdictText = claudeWins ? "Claude wins" : gptWins ? "ChatGPT wins" : "Tied";
+  const verdictSubtext = claudeWins ? 'Round 1 goes to Claude' : gptWins ? 'Round 1 goes to ChatGPT' : 'Round 1 ends all square — everything to play for';
+  const verdictColor = claudeWins ? 'var(--claude-orange)' : gptWins ? 'var(--gpt-graphite)' : 'var(--accent)';
+
+  const qCells = topicQs.map((q, i) => {
+    const result = CLOSED_RESULTS.find(r => r.id === q.id);
+    if (!result) return '';
+    const winner = result.claudeWon === true ? 'Claude' : result.claudeWon === false ? 'ChatGPT' : 'Tie';
+    const wClass = result.claudeWon === true ? 'claude' : result.claudeWon === false ? 'gpt' : 'tie';
+    const pctStr = result.claudeWon === null ? '50/50' : `${result.claudePct}/${result.gptPct}`;
+    return `<div class="clash-r1-final-q">
+      <div class="clash-r1-final-qlabel">Q${i+1}</div>
+      <div class="clash-r1-final-qwinner ${wClass}">${winner}</div>
+      <div class="clash-r1-final-qpct">${pctStr}</div>
+    </div>`;
+  }).join('');
+
+  return `<div class="clash-r1-final">
+    <div class="clash-r1-final-header">
+      <span class="clash-r1-final-brand">AI CL<span class="a">A</span>SH</span>
+      <span class="clash-r1-final-tag">Round 1 · Science &amp; Technology · Final</span>
+    </div>
+    <div class="clash-r1-final-scores">
+      <div class="clash-r1-final-side">
+        <div class="clash-r1-final-model claude">Claude</div>
+        <div class="clash-r1-final-pts claude">${r1pts.claude}</div>
+        <div class="clash-r1-final-label">Points</div>
+      </div>
+      <div class="clash-r1-final-vs">—</div>
+      <div class="clash-r1-final-side">
+        <div class="clash-r1-final-model gpt">ChatGPT</div>
+        <div class="clash-r1-final-pts gpt">${r1pts.gpt}</div>
+        <div class="clash-r1-final-label">Points</div>
+      </div>
+    </div>
+    <div class="clash-r1-verdict" style="flex-direction:column;align-items:center;gap:6px;padding:20px 24px;text-align:center;background:${isTie?'var(--clash-100)':claudeWins?'rgba(217,119,87,0.08)':'rgba(53,55,64,0.06)'}">
+      <span class="clash-r1-verdict-result" style="color:${verdictColor};font-size:28px;letter-spacing:0.02em">${verdictText}</span>
+      <span class="clash-r1-verdict-label" style="color:var(--text-muted);font-size:11px">${verdictSubtext}</span>
+    </div>
+    <div class="clash-r1-final-qs">${qCells}</div>
+  </div>`;
 }
 
 function buildTopicQGrid(topic) {
