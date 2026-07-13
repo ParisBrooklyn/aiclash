@@ -460,12 +460,12 @@ button:focus-visible,a:focus-visible{outline:none;box-shadow:var(--ring)}
 // ── MANUAL OVERRIDE ──────────────────────────
 // Set to a question ID like 'S1', 'S2', 'P1' etc to force that question live.
 // Set to null to auto-detect based on DEADLINE.
-const CURRENT_OVERRIDE = 'P1';
+const CURRENT_OVERRIDE = 'P2';
 
 // ── DEADLINE ─────────────────────────────────
 // Set this to the closing time of the CURRENT question (UTC).
 // Replace before going live: new Date('2026-07-01T18:00:00Z')
-const DEADLINE = new Date('2026-07-13T17:00:00Z'); // Monday July 13 at 1pm ET
+const DEADLINE = new Date('2026-07-16T19:30:00Z'); // Monday July 13 at 1pm ET
 
 // ── APPS SCRIPT URL ──────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1NKV7_LINjbxbS50Chpu6Ku9bYIiEKMwE8eWke6QxrkFFZ8uYPRV7qwXqq5EnM0mu/exec';
@@ -1015,13 +1015,14 @@ const CLOSED_RESULTS = [
   { id: 'S3', claudePct: 80, gptPct: 20, claudeWon: true },
   { id: 'S4', claudePct: 29, gptPct: 71, claudeWon: false },
   { id: 'S5', claudePct: 50, gptPct: 50, claudeWon: null }, // Tie
+  { id: 'P1', claudePct: 25, gptPct: 75, claudeWon: false },
 ];
 
 // Accumulated points — update manually after each question closes
-const POINTS = { claude: 7, gpt: 7 };
+const POINTS = { claude: 7, gpt: 10 };
 const TOPIC_POINTS = {
   'Science & Technology': { claude: 7, gpt: 7 },
-  'Philosophy':           { claude: 0, gpt: 0 },
+  'Philosophy':           { claude: 0, gpt: 3 },
   'History':              { claude: 0, gpt: 0 },
   'Culture & Society':    { claude: 0, gpt: 0 },
   'Economics':            { claude: 0, gpt: 0 },
